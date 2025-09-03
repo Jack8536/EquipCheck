@@ -1,0 +1,109 @@
+﻿@model EquipCheck.Models.ViewModels.DepartmentViewModel;
+
+@{
+    ViewData["Title"] = "部門管理";
+}
+
+<!-- 麵包屑 -->
+<nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><i class="bi bi-gear me-1"></i>系統管理</li>
+        <li class="breadcrumb-item active" aria-current="page">部門管理</li>
+    </ol>
+</nav>
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title mb-0">部門管理</h5>
+    </div>
+    <div class="card-body">
+        <form id="searchForm" method="get">
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <label class="form-label">關鍵字</label>
+                    <input type="text" class="form-control" name="keyword" placeholder="請輸入關鍵字">
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-search me-1"></i>搜尋
+                    </button>
+                    <button type="button" class="btn btn-secondary ms-2" onclick="clearForm()">
+                        <i class="bi bi-x-circle me-1"></i>清除
+                    </button>
+                    <button type="button" class="btn btn-success ms-2" onclick="location.href='@Url.Action("Add", "DepartmentManagement")'">
+                        <i class="bi bi-plus-lg me-1"></i>新增
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card mt-4">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>部門名稱</th>
+                        <th>部門狀態</th>
+                        <th>部門主管</th>
+                        <th>部門成員</th>
+                        <th>動作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.DeptLists.Any())
+                    {
+                        foreach (var item in Model.DeptLists)
+                        {
+                            <tr>
+                                <td>@item.DepartmentName</td>
+                                <td>@item.DepartmentStatus</td>
+                                <td>@item.Manager</td>
+                                @* <td>@item.Members</td> *@
+                                <td>@string.Join("、", item.Members)</td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary"
+                                                @* onclick="deleteAccount() *@">
+                                            <i class="bi bi-trash me-1"></i>檢視
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-outline-primary ms-2"
+                                                onclick="location.href='@Url.Action("Edit", "PersonalForm" @* , new { id = item.Id } *@)'">
+                                            <i class="bi bi-pencil"></i>編輯
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-outline-danger ms-2"
+                                                @* onclick="deleteAccount()" *@>
+                                            <i class="bi bi-trash me-1"></i>刪除
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="7" class="text-center">無資料</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // 清除搜尋條件
+        function clearForm() {
+
+            // 清除所有輸入欄位
+            $('input[name="keyword"]').val('');
+
+            // 送出表單以重新載入頁面
+            $('#searchForm').submit();            
+        }
+    </script>
+}

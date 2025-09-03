@@ -1,0 +1,556 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|c:\\users\\jackzhuang\\desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\equipcheck\\equipcheck\\views\\accountmanagement\\list.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|solutionrelative:views\\accountmanagement\\list.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|c:\\users\\jackzhuang\\desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\equipcheck\\equipcheck\\views\\actionlog\\list.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|solutionrelative:views\\actionlog\\list.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|c:\\users\\jackzhuang\\desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\equipcheck\\equipcheck\\views\\accountmanagement\\add.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|solutionrelative:views\\accountmanagement\\add.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|c:\\users\\jackzhuang\\desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\equipcheck\\equipcheck\\views\\optionmanagement\\list.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|solutionrelative:views\\optionmanagement\\list.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|c:\\users\\jackzhuang\\desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\equipcheck\\equipcheck\\models\\vm_option.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|solutionrelative:models\\vm_option.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|c:\\users\\jackzhuang\\desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\equipcheck\\equipcheck\\controllers\\optionmanagementcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|solutionrelative:controllers\\optionmanagementcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|c:\\users\\jackzhuang\\desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\equipcheck\\equipcheck\\controllers\\personalformcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|solutionrelative:controllers\\personalformcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|c:\\users\\jackzhuang\\desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\equipcheck\\equipcheck\\controllers\\accountmanagementcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|solutionrelative:controllers\\accountmanagementcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|c:\\users\\jackzhuang\\desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\equipcheck\\equipcheck\\views\\departmentmanagement\\list.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|solutionrelative:views\\departmentmanagement\\list.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|c:\\users\\jackzhuang\\desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\equipcheck\\equipcheck\\views\\departmentmanagement\\add.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|solutionrelative:views\\departmentmanagement\\add.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|c:\\users\\jackzhuang\\desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\equipcheck\\equipcheck\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|solutionrelative:views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|c:\\users\\jackzhuang\\desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\equipcheck\\equipcheck\\views\\formmanagement\\add.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|solutionrelative:views\\formmanagement\\add.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|c:\\users\\jackzhuang\\desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\equipcheck\\equipcheck\\views\\formmanagement\\list.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|solutionrelative:views\\formmanagement\\list.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|c:\\users\\jackzhuang\\desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\equipcheck\\equipcheck\\models\\vm_department.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|solutionrelative:models\\vm_department.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|c:\\users\\jackzhuang\\desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\equipcheck\\equipcheck\\services\\commonservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|solutionrelative:services\\commonservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|c:\\users\\jackzhuang\\desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\equipcheck\\equipcheck\\services\\optionmanagementservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|solutionrelative:services\\optionmanagementservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|c:\\users\\jackzhuang\\desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\equipcheck\\equipcheck\\services\\departmentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|solutionrelative:services\\departmentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|c:\\users\\jackzhuang\\desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\equipcheck\\equipcheck\\services\\accountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|solutionrelative:services\\accountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|c:\\users\\jackzhuang\\desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\equipcheck\\equipcheck\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|c:\\users\\jackzhuang\\desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\equipcheck\\equipcheck\\models\\vm_actionlog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|solutionrelative:models\\vm_actionlog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|c:\\users\\jackzhuang\\desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\equipcheck\\equipcheck\\services\\actionlogservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|solutionrelative:services\\actionlogservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|c:\\users\\jackzhuang\\desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\equipcheck\\equipcheck\\services\\loginservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|solutionrelative:services\\loginservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|c:\\users\\jackzhuang\\desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\equipcheck\\equipcheck\\models\\enum\\baseenum.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|solutionrelative:models\\enum\\baseenum.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|c:\\users\\jackzhuang\\desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\equipcheck\\equipcheck\\controllers\\actionlogcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|solutionrelative:controllers\\actionlogcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|c:\\users\\jackzhuang\\desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\equipcheck\\equipcheck\\models\\vm_account.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|solutionrelative:models\\vm_account.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|c:\\users\\jackzhuang\\desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\equipcheck\\equipcheck\\controllers\\departmentmanagementcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|solutionrelative:controllers\\departmentmanagementcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|c:\\users\\jackzhuang\\desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\equipcheck\\equipcheck\\models\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|solutionrelative:models\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|c:\\users\\jackzhuang\\desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\equipcheck\\equipcheck\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|solutionrelative:controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|c:\\users\\jackzhuang\\desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\equipcheck\\equipcheck\\controllers\\formmanagementcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|solutionrelative:controllers\\formmanagementcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|c:\\users\\jackzhuang\\desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\equipcheck\\equipcheck\\views\\login\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{2B793F9B-1E4F-E6CE-4EAB-61748092E6B6}|EquipCheck.csproj|solutionrelative:views\\login\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 21,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{79664857-03bf-4bca-aa54-ec998b3328f8}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "PersonalFormController.cs",
+              "DocumentMoniker": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Controllers\\PersonalFormController.cs",
+              "RelativeDocumentMoniker": "Controllers\\PersonalFormController.cs",
+              "ToolTip": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Controllers\\PersonalFormController.cs",
+              "RelativeToolTip": "Controllers\\PersonalFormController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-03T08:52:26.814Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "VM_Option.cs",
+              "DocumentMoniker": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Models\\VM_Option.cs",
+              "RelativeDocumentMoniker": "Models\\VM_Option.cs",
+              "ToolTip": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Models\\VM_Option.cs",
+              "RelativeToolTip": "Models\\VM_Option.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAA0wBoAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-03T07:49:19.453Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "AccountService.cs",
+              "DocumentMoniker": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Services\\AccountService.cs",
+              "RelativeDocumentMoniker": "Services\\AccountService.cs",
+              "ToolTip": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Services\\AccountService.cs",
+              "RelativeToolTip": "Services\\AccountService.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAAAwCgAAABEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-03T07:46:48.731Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "OptionManagementService.cs",
+              "DocumentMoniker": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Services\\OptionManagementService.cs",
+              "RelativeDocumentMoniker": "Services\\OptionManagementService.cs",
+              "ToolTip": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Services\\OptionManagementService.cs",
+              "RelativeToolTip": "Services\\OptionManagementService.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAA8wDMAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-03T07:45:13.547Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "OptionManagementController.cs",
+              "DocumentMoniker": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Controllers\\OptionManagementController.cs",
+              "RelativeDocumentMoniker": "Controllers\\OptionManagementController.cs",
+              "ToolTip": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Controllers\\OptionManagementController.cs",
+              "RelativeToolTip": "Controllers\\OptionManagementController.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAAwCgAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-03T07:32:38.223Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "List.cshtml",
+              "DocumentMoniker": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Views\\OptionManagement\\List.cshtml",
+              "RelativeDocumentMoniker": "Views\\OptionManagement\\List.cshtml",
+              "ToolTip": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Views\\OptionManagement\\List.cshtml",
+              "RelativeToolTip": "Views\\OptionManagement\\List.cshtml",
+              "ViewState": "AgIAAIoAAAAAAAAAAAAAAJcAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-03T07:31:30.83Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "BaseEnum.cs",
+              "DocumentMoniker": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Models\\Enum\\BaseEnum.cs",
+              "RelativeDocumentMoniker": "Models\\Enum\\BaseEnum.cs",
+              "ToolTip": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Models\\Enum\\BaseEnum.cs",
+              "RelativeToolTip": "Models\\Enum\\BaseEnum.cs",
+              "ViewState": "AgIAADQAAAAAAAAAAAAAwEgAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-03T07:17:06.929Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "VM_Department.cs",
+              "DocumentMoniker": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Models\\VM_Department.cs",
+              "RelativeDocumentMoniker": "Models\\VM_Department.cs",
+              "ToolTip": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Models\\VM_Department.cs",
+              "RelativeToolTip": "Models\\VM_Department.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAA1wBkAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-03T07:10:38.108Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "ErrorViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Models\\ErrorViewModel.cs",
+              "RelativeDocumentMoniker": "Models\\ErrorViewModel.cs",
+              "ToolTip": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Models\\ErrorViewModel.cs",
+              "RelativeToolTip": "Models\\ErrorViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-03T06:59:40.781Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "VM_ActionLog.cs",
+              "DocumentMoniker": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Models\\VM_ActionLog.cs",
+              "RelativeDocumentMoniker": "Models\\VM_ActionLog.cs",
+              "ToolTip": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Models\\VM_ActionLog.cs",
+              "RelativeToolTip": "Models\\VM_ActionLog.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-03T06:58:44.557Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "List.cshtml",
+              "DocumentMoniker": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Views\\ActionLog\\List.cshtml",
+              "RelativeDocumentMoniker": "Views\\ActionLog\\List.cshtml",
+              "ToolTip": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Views\\ActionLog\\List.cshtml",
+              "RelativeToolTip": "Views\\ActionLog\\List.cshtml",
+              "ViewState": "AgIAAGAAAAAAAAAAAAAAAHkAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-03T06:52:21.44Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "ActionLogService.cs",
+              "DocumentMoniker": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Services\\ActionLogService.cs",
+              "RelativeDocumentMoniker": "Services\\ActionLogService.cs",
+              "ToolTip": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Services\\ActionLogService.cs",
+              "RelativeToolTip": "Services\\ActionLogService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-03T06:44:36.87Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "CommonService.cs",
+              "DocumentMoniker": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Services\\CommonService.cs",
+              "RelativeDocumentMoniker": "Services\\CommonService.cs",
+              "ToolTip": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Services\\CommonService.cs",
+              "RelativeToolTip": "Services\\CommonService.cs",
+              "ViewState": "AgIAAFMAAAAAAAAAAAAqwFwAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-03T06:37:31.548Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "VM_Account.cs",
+              "DocumentMoniker": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Models\\VM_Account.cs",
+              "RelativeDocumentMoniker": "Models\\VM_Account.cs",
+              "ToolTip": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Models\\VM_Account.cs",
+              "RelativeToolTip": "Models\\VM_Account.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-03T02:30:08.581Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "List.cshtml",
+              "DocumentMoniker": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Views\\FormManagement\\List.cshtml",
+              "RelativeDocumentMoniker": "Views\\FormManagement\\List.cshtml",
+              "ToolTip": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Views\\FormManagement\\List.cshtml",
+              "RelativeToolTip": "Views\\FormManagement\\List.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-03T01:10:55.47Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Add.cshtml",
+              "DocumentMoniker": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Views\\FormManagement\\Add.cshtml",
+              "RelativeDocumentMoniker": "Views\\FormManagement\\Add.cshtml",
+              "ToolTip": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Views\\FormManagement\\Add.cshtml",
+              "RelativeToolTip": "Views\\FormManagement\\Add.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-03T01:05:59.859Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Views\\Login\\Login.cshtml",
+              "RelativeDocumentMoniker": "Views\\Login\\Login.cshtml",
+              "ToolTip": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Views\\Login\\Login.cshtml",
+              "RelativeToolTip": "Views\\Login\\Login.cshtml",
+              "ViewState": "AgIAAIcAAAAAAAAAAIBJwJoAAABbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-02T10:21:48.997Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAFEAAAAAAAAAAAAAAFsAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-02T09:52:54.584Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AccountManagementController.cs",
+              "DocumentMoniker": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Controllers\\AccountManagementController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AccountManagementController.cs",
+              "ToolTip": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Controllers\\AccountManagementController.cs",
+              "RelativeToolTip": "Controllers\\AccountManagementController.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAIwCgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-02T08:03:22.111Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "FormManagementController.cs",
+              "DocumentMoniker": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Controllers\\FormManagementController.cs",
+              "RelativeDocumentMoniker": "Controllers\\FormManagementController.cs",
+              "ToolTip": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Controllers\\FormManagementController.cs",
+              "RelativeToolTip": "Controllers\\FormManagementController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-03T01:12:17.556Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "List.cshtml",
+              "DocumentMoniker": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Views\\AccountManagement\\List.cshtml",
+              "RelativeDocumentMoniker": "Views\\AccountManagement\\List.cshtml",
+              "ToolTip": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Views\\AccountManagement\\List.cshtml",
+              "RelativeToolTip": "Views\\AccountManagement\\List.cshtml",
+              "ViewState": "AgIAAGAAAAAAAAAAAAAAAHcAAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-02T07:55:57.502Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-02T09:37:35.887Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "LoginController.cs",
+              "DocumentMoniker": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Controllers\\LoginController.cs",
+              "RelativeDocumentMoniker": "Controllers\\LoginController.cs",
+              "ToolTip": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Controllers\\LoginController.cs",
+              "RelativeToolTip": "Controllers\\LoginController.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAAvwCgAAABNAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-02T09:28:28.983Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "List.cshtml",
+              "DocumentMoniker": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Views\\DepartmentManagement\\List.cshtml",
+              "RelativeDocumentMoniker": "Views\\DepartmentManagement\\List.cshtml",
+              "ToolTip": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Views\\DepartmentManagement\\List.cshtml",
+              "RelativeToolTip": "Views\\DepartmentManagement\\List.cshtml",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAAAAkAAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-02T08:59:43.441Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "LoginService.cs",
+              "DocumentMoniker": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Services\\LoginService.cs",
+              "RelativeDocumentMoniker": "Services\\LoginService.cs",
+              "ToolTip": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Services\\LoginService.cs",
+              "RelativeToolTip": "Services\\LoginService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-02T08:44:28.443Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "DepartmentService.cs",
+              "DocumentMoniker": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Services\\DepartmentService.cs",
+              "RelativeDocumentMoniker": "Services\\DepartmentService.cs",
+              "ToolTip": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Services\\DepartmentService.cs",
+              "RelativeToolTip": "Services\\DepartmentService.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAAACEAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-02T08:42:11.847Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "ActionLogController.cs",
+              "DocumentMoniker": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Controllers\\ActionLogController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ActionLogController.cs",
+              "ToolTip": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Controllers\\ActionLogController.cs",
+              "RelativeToolTip": "Controllers\\ActionLogController.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAIAxwBsAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-02T08:17:05.958Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Add.cshtml",
+              "DocumentMoniker": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Views\\AccountManagement\\Add.cshtml",
+              "RelativeDocumentMoniker": "Views\\AccountManagement\\Add.cshtml",
+              "ToolTip": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Views\\AccountManagement\\Add.cshtml",
+              "RelativeToolTip": "Views\\AccountManagement\\Add.cshtml",
+              "ViewState": "AgIAAOQAAAAAAAAAAAAAAFoAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-02T07:53:52.994Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Add.cshtml",
+              "DocumentMoniker": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Views\\DepartmentManagement\\Add.cshtml",
+              "RelativeDocumentMoniker": "Views\\DepartmentManagement\\Add.cshtml",
+              "ToolTip": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Views\\DepartmentManagement\\Add.cshtml",
+              "RelativeToolTip": "Views\\DepartmentManagement\\Add.cshtml",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAAAFUAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-02T07:41:31.211Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "DepartmentManagementController.cs",
+              "DocumentMoniker": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Controllers\\DepartmentManagementController.cs",
+              "RelativeDocumentMoniker": "Controllers\\DepartmentManagementController.cs",
+              "ToolTip": "C:\\Users\\jackzhuang\\Desktop\\\u8A2D\u5099\u5B89\u6AA2\u7CFB\u7D71\\EquipCheck\\EquipCheck\\Controllers\\DepartmentManagementController.cs",
+              "RelativeToolTip": "Controllers\\DepartmentManagementController.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAhwD8AAABEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-02T05:40:13.029Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

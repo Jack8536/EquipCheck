@@ -1,0 +1,178 @@
+﻿@model EquipCheck.Models.DB.Users;
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>登入 - 員工設備檢核系統</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .auth-card {
+            transition: all 0.3s ease;
+        }
+
+            .auth-card:hover {
+                transform: translateY(-5px);
+            }
+
+        .input-group-text {
+            background-color: #f8f9fa;
+        }
+
+        .btn-primary {
+            background-color: #0d6efd;
+            border: none;
+        }
+
+            .btn-primary:hover {
+                background-color: #0b5ed7;
+            }
+
+        .logo-tag {
+            font-size: 0.75rem;
+            padding: 0.35em 0.65em;
+        }
+    </style>
+</head>
+<body>
+    @using (Html.BeginForm("Login", "Login", FormMethod.Post, htmlAttributes: new { id = "main_form" }))
+    {
+        <!-- 您原有的HTML內容 -->
+        <div class="container">
+            <div class="row vh-100">
+                <div class="col-12 col-md-6 col-lg-5 mx-auto align-self-center">
+                    <div class="auth-page">
+                        <div class="card auth-card shadow-lg border-0 rounded-4">
+                            <div class="card-body p-4">
+                                <div class="px-3">
+                                    <div class="auth-logo-box text-center mb-4">
+                                        <a href="#" class="logo logo-admin">
+                                            <img src="~/images/logo/iscomlog.jpg?20250902" alt="logo" class="img-fluid" style="max-height: 70px;">
+                                        </a>
+                                    </div>
+
+                                    <div class="text-center auth-logo-text">
+                                        <h3 class="mb-4 fw-bold">
+                                            員工設備檢核系統
+                                        </h3>
+                                    </div>
+
+                                    <form class="auth-form">
+                                        <div id="AccountShow">
+                                            <div class="form-group mb-4">
+                                                <label for="Account" class="form-label fw-medium mb-2">帳號</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text bg-light border-end-0">
+                                                        <i class="fas fa-user text-muted"></i>
+                                                    </span>
+                                                    @Html.TextBoxFor(m => m.UserAccount, new { @class = "form-control border-start-0 ps-0", placeholder = "請輸入您的帳號", required = "required" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group mb-4">
+                                                <label for="Password" class="form-label fw-medium mb-2">密碼</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text bg-light border-end-0">
+                                                        <i class="fas fa-lock text-muted"></i>
+                                                    </span>
+                                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control border-start-0 ps-0", placeholder = "請輸入您的密碼", required = "required" })
+                                                    <button class="btn btn-light border border-start-0" type="button" onclick="togglePassword(this)">
+                                                        <i class="fas fa-eye-slash"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            @* <div class="row mb-4">
+                                                <div class="col-6">
+                                                    <div class="form-check">
+                                                        <input type="checkbox" class="form-check-input" id="RememberMe">
+                                                        <label class="form-check-label" for="RememberMe">記住我</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6 text-end">
+                                                    <a href="#" class="text-primary text-decoration-none">忘記密碼？</a>
+                                                </div>
+                                            </div> *@
+
+                                            <button type="submit" class="btn btn-primary w-100 py-2 mb-3">
+                                                <i class="fas fa-sign-in-alt me-2"></i>登入
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <!-- jQuery -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap Bundle JS -->
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        // 密碼顯示明文效果
+        function togglePassword(button) {
+            const input = button.parentElement.querySelector('input');
+            const icon = button.querySelector('i');
+
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.replace('fa-eye-slash', 'fa-eye');
+            } else {
+                input.type = 'password';
+                icon.classList.replace('fa-eye', 'fa-eye-slash');
+            }
+        }
+
+        $(document).ready(function () {
+            $('#main_form').on('submit', function (e) {
+                e.preventDefault();
+
+                $.ajax({
+                    url: '@Url.Action("Login", "Login")',
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    success: function (response) {
+                        if (response.success) {                            
+                            window.location.href = '@Url.Action("List", "FormManagement")';
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: '登入失敗',
+                                text: response.message,
+                                confirmButtonText: '確定'
+                            });
+                        }
+                    },
+                    error: function () {
+                        Swal.fire({
+                            icon: 'error',
+                            title: '系統錯誤',
+                            text: '請稍後再試',
+                            confirmButtonText: '確定'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

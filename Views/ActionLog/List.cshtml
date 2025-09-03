@@ -1,0 +1,125 @@
+﻿@model EquipCheck.Models.ViewModels.VM_ActionLog;
+
+@{
+    ViewData["Title"] = "操作日誌";
+}
+
+<!-- 麵包屑 -->
+<nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><i class="bi bi-gear me-1"></i>系統管理</li>
+        <li class="breadcrumb-item active" aria-current="page">操作日誌</li>
+    </ol>
+</nav>
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title mb-0">操作日誌</h5>
+    </div>
+    <div class="card-body">
+        <form id="searchForm" method="get">
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <label class="form-label">關鍵字</label>
+                    <input type="text" class="form-control" name="keyword" placeholder="請輸入關鍵字">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">操作人員</label>
+                    <input type="text" class="form-control" name="operator" placeholder="請輸入關鍵字">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">表單填寫期間(起)</label>
+                    <input type="date" class="form-control" name="startDate">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">表單填寫期間(迄)</label>
+                    <input type="date" class="form-control" name="endDate">
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-search me-1"></i>搜尋
+                    </button>
+                    <button type="button" class="btn btn-secondary ms-2" onclick="clearForm()">
+                        <i class="bi bi-x-circle me-1"></i>清除
+                    </button>
+                    <div class="dropdown d-inline-block ms-2">
+                        <button class="btn btn-outline-success dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-sort-down me-1"></i>排序方式
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="sortDropdown">
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center" href="#" @* onclick="changeSort('desc')" *@>
+                                    <i class="bi bi-sort-down me-2"></i>
+                                    <span>由新到舊</span>
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center" href="#" @* onclick="changeSort('asc')" *@>
+                                    <i class="bi bi-sort-up me-2"></i>
+                                    <span>由舊到新</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <input type="hidden" name="sortOrder" id="sortOrder" value="desc">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card mt-4">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>操作日期</th>
+                        <th>事件</th>
+                        <th>操作人員</th>
+                        <th>訊息</th>
+                        <th>登入IP</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.ActionlogList.Any())
+                    {
+                        @foreach (var item in Model.ActionlogList)
+                        {
+                            <tr>
+                                <td>@item.OperateDate</td>
+                                <td>@item.Event</td>
+                                <td>@item.OperateUser</td>
+                                <td>@item.Message</td>
+                                <td>@item.IP</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="7" class="text-center">無資料</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // 清除搜尋條件
+        function clearForm() {
+            // 清除所有輸入欄位
+            $('input[name="keyword"]').val('');
+            $('input[name="operator"]').val('');
+            $('input[name="startDate"]').val('');
+            $('input[name="endDate"]').val('');
+
+            // 送出表單以重新載入頁面
+            $('#searchForm').submit();            
+        }
+    </script>
+}

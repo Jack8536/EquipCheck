@@ -1,0 +1,126 @@
+﻿@model EquipCheck.Models.ViewModels.AccountViewModel;
+
+@{
+    ViewData["Title"] = "帳號管理";
+}
+
+<!-- 麵包屑 -->
+<nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><i class="bi bi-gear me-1"></i>系統管理</li>
+        <li class="breadcrumb-item active" aria-current="page">帳號管理</li>
+    </ol>
+</nav>
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title mb-0">帳號管理</h5>
+    </div>
+    <div class="card-body">
+        <form id="searchForm" method="post">
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <label class="form-label">關鍵字</label>
+                    <input type="text" class="form-control" name="keyword" placeholder="請輸入員工名稱">
+                </div>
+                @* 下拉選單 *@
+                <div class="col-md-3">
+                    <label class="form-label">部門名稱</label>
+                    @Html.DropDownListFor(m => m.SearchDept, new SelectList(Model.DepartmentDDL, "Value", "Text"), "請選擇部門", new { @class = "form-select" })
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">帳號狀態</label>
+                    @Html.DropDownListFor(m => m.SearchStatus, new SelectList(Model.StatusDDL, "Value", "Text"), "請選擇狀態", new { @class = "form-select" })
+                </div>
+                @* 下拉選單 *@
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-search me-1"></i>搜尋
+                    </button>
+                    <button type="button" class="btn btn-secondary ms-2" onclick="clearForm()">
+                        <i class="bi bi-x-circle me-1"></i>清除
+                    </button>
+                    <button type="button" class="btn btn-success ms-2" onclick="location.href='@Url.Action("Add", "AccountManagement")'">
+                        <i class="bi bi-plus-lg me-1"></i>新增
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card mt-4">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>員工姓名</th>
+                        <th>員工帳號</th>
+                        <th>部門名稱</th>
+                        <th>身份</th>
+                        <th>狀態</th>
+                        <th>動作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.UserList.Any())
+                    {
+                        @foreach (var item in Model.UserList)
+                        {
+                            <tr>
+                                <td>@item.MemberName</td>
+                                <td>@item.MemberAccount</td>
+                                <td>@item.DepartmentName</td>
+                                <td>@item.RoleName</td>
+                                <td>@item.Status</td>                                
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-sm btn-outline-primary"
+                                                onclick="location.href='@Url.Action("Edit", "AccountManagement", new { id = item.MemberAccount })'">
+                                            <i class="bi bi-pencil me-1"></i>編輯
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-outline-dark ms-2"
+                                                onclick="toggleStatus('@item.MemberAccount')">
+                                            <i class="bi bi-pause-circle me-1"></i>停用
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-outline-danger ms-2"
+                                                onclick="deleteAccount('@item.MemberAccount')">
+                                            <i class="bi bi-trash me-1"></i>刪除
+                                        </button>
+                                    </div>
+                                </td>
+
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="7" class="text-center">無資料</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // 清除搜尋條件
+        function clearForm() {
+            // 清除關鍵字
+            $('input[name="keyword"]').val('');
+
+            // 清除部門下拉選單
+            $('select[name="SearchDept"]').val('');
+
+            // 清除狀態下拉選單
+            $('select[name="SearchStatus"]').val('');
+
+            // 送出表單以重新載入頁面
+            $('#searchForm').submit();
+        }
+    </script>
+}

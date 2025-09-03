@@ -1,0 +1,275 @@
+﻿@model EquipCheck.Models.ViewModels.AccountViewModel;
+
+@{
+    ViewData["Title"] = "新增員工";
+}
+
+<style>
+    /* 卡片樣式 */
+    .card {
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        border: none;
+        margin-bottom: 1.5rem;
+    }
+
+    /* 麵包屑美化 */
+    .breadcrumb {
+        background-color: #fff;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    }
+
+    /* 表單元素美化 */
+    .form-control:focus, .form-select:focus {
+        border-color: #80bdff;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+
+    .form-label {
+        font-weight: 500;
+        color: #495057;
+    }
+
+    /* 必填標記樣式 */
+    .required-mark {
+        color: #dc3545;
+        margin-left: 0.25rem;
+    }
+
+    /* 卡片標題區域 */
+    .card-header {
+        background-color: #fff;
+        border-bottom: 1px solid rgba(0,0,0,.125);
+        padding: 1.5rem;
+    }
+
+    /* 按鈕組樣式 */
+    .btn-group-bottom {
+        padding-top: 1.5rem;
+        border-top: 1px solid #dee2e6;
+    }
+
+    /* 表單區塊間距 */
+    .form-section {
+        margin-bottom: 2rem;
+    }
+
+    /* 欄位提示文字 */
+    .field-hint {
+        font-size: 0.875rem;
+        color: #6c757d;
+        margin-top: 0.25rem;
+    }
+
+    /* 檔案上傳區域 */
+    .file-upload-area {
+        border: 2px dashed #dee2e6;
+        padding: 1.5rem;
+        text-align: center;
+        border-radius: 0.5rem;
+        background-color: #f8f9fa;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+        .file-upload-area:hover {
+            border-color: #80bdff;
+            background-color: #e9ecef;
+        }
+
+    .file-preview {
+        max-width: 200px;
+        margin-top: 1rem;
+    }
+</style>
+
+<!-- 麵包屑 -->
+<nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <i class="bi bi-gear me-1"></i>系統管理
+        </li>
+        <li class="breadcrumb-item">
+            <a href="@Url.Action("List", "AccountManagement")" class="text-decoration-none">帳號管理</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">新增員工</li>
+    </ol>
+</nav>
+
+<div class="card">
+    <div class="card-header d-flex align-items-center">
+        <i class="bi bi-person-plus me-2 text-primary"></i>
+        <h5 class="card-title mb-0">新增員工</h5>
+    </div>
+    <div class="card-body">
+        <form id="accountForm" method="post" class="needs-validation" novalidate enctype="multipart/form-data">
+            <div class="row g-4">
+                <!-- 員工名稱 -->
+                <div class="col-md-6 form-section">
+                    <label for="userName" class="form-label">
+                        <i class="bi bi-person me-1"></i>員工名稱
+                        <span class="required-mark">*</span>
+                    </label>
+                    @*                     <input type="text" class="form-control" id="userName" name="userName"
+                           required placeholder="請輸入員工名稱"> *@
+                    @Html.TextBoxFor(m => m.MemberName, new { @class = "form-control", placeholder = "請輸入員工名稱", required = "required" })
+                    <div class="invalid-feedback">請輸入員工名稱</div>
+                </div>
+
+                <!-- 員工帳號 -->
+                <div class="col-md-6 form-section">
+                    <label for="userAccount" class="form-label">
+                        <i class="bi bi-person-badge me-1"></i>員工帳號
+                        <span class="required-mark">*</span>
+                    </label>
+                    @Html.TextBoxFor(m => m.MemberAccount, new { @class = "form-control", placeholder = "請輸入員工帳號", required = "required" })
+                    <div class="invalid-feedback">請輸入員工帳號</div>
+                </div>
+
+                <!-- 部門名稱 -->
+                <div class="col-md-6 form-section">
+                    <label for="departmentId" class="form-label">
+                        <i class="bi bi-building me-1"></i>部門名稱
+                        <span class="required-mark">*</span>
+                    </label>
+                    @Html.DropDownListFor(m => m.DepartmentUID, new SelectList(Model.DepartmentDDL, "Value", "Text"), "請選擇部門", new { @class = "form-select", required = "required" })
+                    <div class="invalid-feedback">請選擇部門</div>
+                </div>
+
+                <!-- 身分 -->
+                <div class="col-md-6 form-section">
+                    <label for="role" class="form-label">
+                        <i class="bi bi-shield-lock me-1"></i>身分
+                        <span class="required-mark">*</span>
+                    </label>
+                    <select class="form-select" id="role" name="role" required>
+                        <option value="">請選擇身分</option>
+                        <option value="0">一般使用者</option>
+                        <option value="1">管理者</option>
+                    </select>
+                    <div class="invalid-feedback">請選擇身分</div>
+                </div>
+
+                <!-- 分機 -->
+                <div class="col-md-6 form-section">
+                    <label for="extension" class="form-label">
+                        <i class="bi bi-telephone me-1"></i>分機
+                        <span class="required-mark">*</span>
+                    </label>
+                    @Html.TextBoxFor(m => m.Tel, new { @class = "form-control", placeholder = "請輸入分機號碼", required = "required" })
+                </div>
+
+                <!-- 備註 -->
+                <div class="col-md-6 form-section">
+                    <label for="notes" class="form-label">
+                        <i class="bi bi-sticky me-1"></i>備註
+                    </label>
+                    @Html.TextAreaFor(m => m.Remark, new { @class = "form-control", placeholder = "請輸入備註", rows = "3" })
+                </div>
+
+                <!-- 電子簽名檔上傳 -->
+                <div class="col-12 form-section">
+                    <label class="form-label">
+                        <i class="bi bi-pen me-1"></i>電子簽名檔
+                    </label>
+                    <div class="file-upload-area" id="signatureUpload">
+                        <input type="file" class="d-none" id="signatureFile" name="signatureFile"
+                               accept="image/*">
+                        <div class="upload-content">
+                            <i class="bi bi-cloud-arrow-up fs-3 mb-2"></i>
+                            <p class="mb-0">點擊或拖曳檔案至此處上傳</p>
+                            <p class="text-muted small mb-0">支援的格式：JPG, PNG, JPEG, GIF</p>
+                        </div>
+                        <img id="signaturePreview" class="file-preview d-none" alt="簽名預覽">
+                    </div>
+                </div>
+
+                <!-- 按鈕群組 -->
+                <div class="col-12 btn-group-bottom">
+                    <div class="d-flex justify-content-end gap-2">
+                        <button type="button" class="btn btn-secondary" onclick="history.back()">
+                            <i class="bi bi-arrow-left me-1"></i>返回
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-check-lg me-1"></i>儲存
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {    
+    <script>
+        $(document).ready(function() {
+            // 檔案上傳處理
+            // $('#signatureUpload').on('click', function() {
+            //     $('#signatureFile').click();
+            // });
+
+            // $('#signatureFile').on('change', function(e) {
+            //     if (this.files && this.files[0]) {
+            //         const reader = new FileReader();
+            //         reader.onload = function(e) {
+            //             $('#signaturePreview').attr('src', e.target.result)
+            //                 .removeClass('d-none');
+            //             $('.upload-content').addClass('d-none');
+            //         }
+            //         reader.readAsDataURL(this.files[0]);
+            //     }
+            // });
+
+            // 表單驗證與提交
+            $('#accountForm').on('submit', function(e) {
+                e.preventDefault();
+
+                if (!this.checkValidity()) {
+                    e.stopPropagation();
+                    $(this).addClass('was-validated');
+                    return;
+                }
+
+                // 建立 FormData 物件以處理檔案上傳
+                const formData = new FormData(this);
+
+                // 發送表單數據
+                $.ajax({
+                    url: '@Url.Action("Add", "AccountManagement")',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.success) {                            
+                            Swal.fire({
+                                icon: 'success',
+                                title: '新增成功',
+                                text: '員工資料已成功建立',
+                                confirmButtonText: '確定'
+                            }).then((result) => {
+                                window.location.href = '@Url.Action("List", "AccountManagement")';
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: '新增失敗',
+                                text: response.message || '發生錯誤，請稍後再試',
+                                confirmButtonText: '確定'
+                            });
+                        }
+                    },
+                    error: function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: '系統錯誤',
+                            text: '請稍後再試',
+                            confirmButtonText: '確定'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}

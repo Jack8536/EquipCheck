@@ -1,0 +1,219 @@
+﻿@{
+    ViewData["Title"] = "問卷編輯（模板，無 Model）";
+    Layout = "_Layout"; // 若沒有佈局可移除
+}
+
+<h2 class="mb-3">表單編輯</h2>
+
+<form method="post" action="/Forms/SaveChecklist" id="checklistForm">
+    @* 暫無 Model，因此只用一般 input 與一個 payload 隱藏欄位 *@
+    <input type="hidden" id="payload" name="payload" />
+
+    <div class="row g-2 mb-3">
+        <div class="col-auto">
+            <label class="col-form-label">表單名稱：</label>
+        </div>
+        <div class="col-6 col-md-4">
+            <input class="form-control" id="formUid" />
+        </div>
+        <div class="col-auto">
+            <button type="button" id="btnAdd" class="btn btn-primary">＋ 新增題目</button>
+            <button type="submit" class="btn btn-success">儲存</button>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered align-middle" id="itemsTable">
+            <thead class="table-light">
+                <tr>
+                    <th style="width:50px;">拖曳</th>
+                    <th>檢查項目 (ItemName)</th>
+                    <th style="width:140px;">是否啟用</th>
+                    <th style="width:90px;">操作</th>
+                </tr>
+            </thead>
+            <tbody id="itemsBody">
+                @* 初始無資料；需要預放資料可在這邊插列 *@
+            </tbody>
+        </table>
+    </div>
+</form>
+
+<template id="rowTemplate">
+    <tr draggable="true" class="draggable">
+        <td class="drag-handle text-center" title="拖曳排序">⋮⋮</td>
+        <td>
+            <input class="form-control item-name" placeholder="請輸入檢查項目..." />
+            @* 內部隱藏欄位（無 Model，純前端管理） *@
+            <input type="hidden" class="item-uid" />
+            <input type="hidden" class="item-formuid" />
+            <input type="hidden" class="item-sort" value="0" />
+        </td>
+        <td class="text-center">
+            <input class="form-check-input item-status" type="checkbox" checked />
+        </td>
+        <td class="text-center">
+            <button type="button" class="btn btn-sm btn-outline-danger btn-delete">刪除</button>
+        </td>
+    </tr>
+</template>
+
+<style>
+    .draggable.dragging {
+        opacity: .5;
+    }
+
+    .drag-handle {
+        cursor: grab;
+        user-select: none;
+        font-size: 20px;
+    }
+
+    .drag-over {
+        outline: 2px dashed #0d6efd;
+    }
+</style>
+
+@section Scripts {
+    <script>
+        (() => {
+            const body = document.getElementById('itemsBody');
+            const btnAdd = document.getElementById('btnAdd');
+            const tpl = document.getElementById('rowTemplate');
+            const form = document.getElementById('checklistForm');
+            const payload = document.getElementById('payload');
+            const formUidInput = document.getElementById('formUid');
+
+            // 產生 GUID（新題目用）
+            function newGuid() {
+                if (crypto && crypto.randomUUID) return crypto.randomUUID();
+                // 簡易 fallback
+                return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+                    const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+                    return v.toString(16);
+                });
+            }
+
+            // 新增題目
+            btnAdd.addEventListener('click', () => {
+                const temp = document.createElement('tbody');
+                temp.innerHTML = tpl.innerHTML.trim();
+                const tr = temp.firstElementChild;
+
+                // 預設欄位
+                tr.querySelector('.item-uid').value = newGuid();
+                tr.querySelector('.item-formuid').value = formUidInput.value || '';
+
+                body.appendChild(tr);
+                wireRow(tr);
+                reindex();
+            });
+
+            // 刪除題目
+            body.addEventListener('click', (e) => {
+                const btn = e.target.closest('.btn-delete');
+                if (!btn) return;
+                btn.closest('tr')?.remove();
+                reindex();
+            });
+
+            // 綁定既有列（若你事先塞了資料）
+            Array.from(body.querySelectorAll('tr')).forEach(wireRow);
+
+            // 送出：把資料打包成 JSON 放進 hidden input[name=payload]
+            form.addEventListener('submit', (e) => {
+                // 可加前端驗證
+                const items = collectItems();
+                const data = {
+                    formUid: formUidInput.value || null,
+                    items: items
+                };
+                payload.value = JSON.stringify(data);
+                // 直接提交給後端（/Forms/SaveChecklist），後端再解析 payload JSON
+                // e.preventDefault(); // 若想先檢視 JSON 可取消註解暫停提交
+            });
+
+            function wireRow(tr) {
+                // Drag & Drop
+                tr.addEventListener('dragstart', (e) => {
+                    tr.classList.add('dragging');
+                    e.dataTransfer.effectAllowed = 'move';
+                });
+                tr.addEventListener('dragend', () => {
+                    tr.classList.remove('dragging');
+                    Array.from(body.children).forEach(r => r.classList.remove('drag-over'));
+                    reindex();
+                });
+            }
+
+            // 容器拖放
+            body.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                const after = getDragAfterElement(body, e.clientY);
+                const dragging = body.querySelector('.dragging');
+                if (!dragging) return;
+
+                Array.from(body.children).forEach(r => r.classList.remove('drag-over'));
+                if (after == null) {
+                    body.appendChild(dragging);
+                } else {
+                    after.classList.add('drag-over');
+                    body.insertBefore(dragging, after);
+                }
+            });
+
+            body.addEventListener('dragleave', (e) => {
+                if (e.target === body) {
+                    Array.from(body.children).forEach(r => r.classList.remove('drag-over'));
+                }
+            });
+
+            function getDragAfterElement(container, y) {
+                const rows = [...container.querySelectorAll('tr:not(.dragging)')];
+                return rows.reduce((closest, child) => {
+                    const box = child.getBoundingClientRect();
+                    const offset = y - box.top - box.height / 2;
+                    if (offset < 0 && offset > closest.offset) {
+                        return { offset, element: child };
+                    } else {
+                        return closest;
+                    }
+                }, { offset: Number.NEGATIVE_INFINITY }).element || null;
+            }
+
+            // 重新編號 sort & 同步 FormUID
+            function reindex() {
+                const rows = Array.from(body.querySelectorAll('tr'));
+                rows.forEach((tr, i) => {
+                    const sortInput = tr.querySelector('.item-sort');
+                    if (sortInput) sortInput.value = i + 1;
+
+                    // 若使用者後改了 FormUID，同步到列
+                    const formUid = formUidInput.value || '';
+                    const rowFormUid = tr.querySelector('.item-formuid');
+                    if (rowFormUid) rowFormUid.value = formUid;
+                });
+            }
+
+            // 收集所有列為 JSON 陣列
+            function collectItems() {
+                const rows = Array.from(body.querySelectorAll('tr'));
+                return rows.map((tr, i) => {
+                    const uid = tr.querySelector('.item-uid')?.value || newGuid();
+                    const formUid = tr.querySelector('.item-formuid')?.value || (formUidInput.value || '');
+                    const name = tr.querySelector('.item-name')?.value?.trim() || '';
+                    const sort = parseInt(tr.querySelector('.item-sort')?.value ?? (i + 1), 10);
+                    const status = tr.querySelector('.item-status')?.checked ?? false;
+
+                    return {
+                        ChecklistItemUid: uid || null,
+                        FormUID: formUid || null,
+                        ItemName: name,
+                        Sort: sort,
+                        Status: status
+                    };
+                });
+            }
+        })();
+    </script>
+}
