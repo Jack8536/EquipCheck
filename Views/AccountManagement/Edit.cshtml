@@ -1,7 +1,7 @@
 ﻿@model EquipCheck.Models.ViewModels.VM_Account;
 
 @{
-    ViewData["Title"] = "新增員工";
+    ViewData["Title"] = "編輯員工";
 }
 
 <style>
@@ -82,6 +82,45 @@
         max-width: 200px;
         margin-top: 1rem;
     }
+
+    /* 更新檔案上傳區域樣式 */
+    .file-upload-area {
+        border: 2px dashed #dee2e6;
+        padding: 1.5rem;
+        text-align: center;
+        border-radius: 0.5rem;
+        background-color: #f8f9fa;
+        transition: all 0.3s ease;
+        min-height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .file-upload-area:hover {
+            border-color: #80bdff;
+            background-color: #e9ecef;
+        }
+
+    .file-preview {
+        max-width: 200px;
+        max-height: 150px;
+        border-radius: 0.25rem;
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    }
+
+    .preview-section {
+        width: 100%;
+    }
+
+    .preview-actions {
+        margin-top: 1rem;
+    }
+
+    .upload-content {
+        cursor: pointer;
+        width: 100%;
+    }
 </style>
 
 <!-- 麵包屑 -->
@@ -93,17 +132,19 @@
         <li class="breadcrumb-item">
             <a href="@Url.Action("List", "AccountManagement")" class="text-decoration-none">帳號管理</a>
         </li>
-        <li class="breadcrumb-item active" aria-current="page">新增員工</li>
+        <li class="breadcrumb-item active" aria-current="page">編輯員工</li>
     </ol>
 </nav>
 
 <div class="card">
     <div class="card-header d-flex align-items-center">
-        <i class="bi bi-person-plus me-2 text-primary"></i>
-        <h5 class="card-title mb-0">新增員工</h5>
+        <i class="bi bi-person-gear me-2 text-primary"></i>
+        <h5 class="card-title mb-0">編輯員工</h5>
     </div>
     <div class="card-body">
         <form id="accountForm" method="post" class="needs-validation" novalidate enctype="multipart/form-data">
+            @Html.HiddenFor(m => m.MemberUID) 
+            @Html.HiddenFor(m => m.MemberAccount)
             <div class="row g-4">
                 <!-- 員工名稱 -->
                 <div class="col-md-6 form-section">
@@ -111,20 +152,17 @@
                         <i class="bi bi-person me-1"></i>員工名稱
                         <span class="required-mark">*</span>
                     </label>
-                    @*                     <input type="text" class="form-control" id="userName" name="userName"
-                           required placeholder="請輸入員工名稱"> *@
-                    @Html.TextBoxFor(m => m.MemberName, new { @class = "form-control", placeholder = "請輸入員工名稱", required = "required" })
+                    @* @Html.TextBoxFor(m => m.MemberName, new { @class = "form-control", placeholder = "請輸入員工名稱", required = "required" }) *@
+                    <input type="text" class="form-control" value="@Model.MemberName" readonly disabled>
                     <div class="invalid-feedback">請輸入員工名稱</div>
                 </div>
 
-                <!-- 員工帳號 -->
+                <!-- 員工帳號（唯讀） -->
                 <div class="col-md-6 form-section">
                     <label for="userAccount" class="form-label">
                         <i class="bi bi-person-badge me-1"></i>員工帳號
-                        <span class="required-mark">*</span>
                     </label>
-                    @Html.TextBoxFor(m => m.MemberAccount, new { @class = "form-control", placeholder = "請輸入員工帳號", required = "required" })
-                    <div class="invalid-feedback">請輸入員工帳號</div>
+                    <input type="text" class="form-control" value="@Model.MemberAccount" readonly disabled>
                 </div>
 
                 <!-- 部門名稱 -->
@@ -133,8 +171,7 @@
                         <i class="bi bi-building me-1"></i>部門名稱
                         <span class="required-mark">*</span>
                     </label>
-                    @Html.DropDownListFor(m => m.DepartmentUID, new SelectList(Model.DepartmentDDL, "Value", "Text"), "請選擇部門", new { @class = "form-select", required = "required" })
-                    <div class="invalid-feedback">請選擇部門</div>
+                    @Html.DropDownListFor(m => m.DepartmentUID, new SelectList(Model.DepartmentDDL, "Value", "Text"), new { @class = "form-select", required = "required" })
                 </div>
 
                 <!-- 身分 -->
@@ -143,13 +180,16 @@
                         <i class="bi bi-shield-lock me-1"></i>身分
                         <span class="required-mark">*</span>
                     </label>
-@*                     <select class="form-select" id="role" name="role" required>
-                        <option value="">請選擇身分</option>
-                        <option value="0">一般使用者</option>
-                        <option value="1">管理者</option>
-                    </select> *@
-                    @Html.DropDownListFor(m => m.Role, new SelectList(Model.RoleDDL, "Value", "Text"), "請選擇身分", new { @class = "form-select", required = "required" })
-                    <div class="invalid-feedback">請選擇身分</div>
+                    @Html.DropDownListFor(m => m.Role, new SelectList(Model.RoleDDL, "Value", "Text"), new { @class = "form-select", required = "required" })
+                </div>
+
+                <!-- 狀態 -->
+                <div class="col-md-6 form-section">
+                    <label for="status" class="form-label">
+                        <i class="bi bi-toggle-on me-1"></i>狀態
+                        <span class="required-mark">*</span>
+                    </label>
+                    @Html.DropDownListFor(m => m.Status, new SelectList(Model.StatusDDL, "Value", "Text"), new { @class = "form-select", required = "required" })
                 </div>
 
                 <!-- 分機 -->
@@ -158,7 +198,8 @@
                         <i class="bi bi-telephone me-1"></i>分機
                         <span class="required-mark">*</span>
                     </label>
-                    @Html.TextBoxFor(m => m.Tel, new { @class = "form-control", placeholder = "請輸入分機號碼", required = "required" })
+                    @Html.TextBoxFor(m => m.Tel, new { @class = "form-control", required = "required" })
+                    <div class="invalid-feedback">請輸入分機號碼</div>
                 </div>
 
                 <!-- 備註 -->
@@ -176,13 +217,16 @@
                     </label>
                     <div class="file-upload-area" id="signatureUpload">
                         <input type="file" class="d-none" id="signatureFile" name="signatureFile" accept="image/*">
-                        <div class="upload-content" id="uploadPrompt">
+                        @Html.HiddenFor(m => m.SignaturePath)
+                        <div class="upload-content @(string.IsNullOrEmpty(Model.SignaturePath) ? "" : "d-none")" id="uploadPrompt">
                             <i class="bi bi-cloud-arrow-up fs-3 mb-2"></i>
                             <p class="mb-0">點擊或拖曳檔案至此處上傳</p>
                             <p class="text-muted small mb-0">支援的格式：JPG, PNG, JPEG, GIF</p>
                         </div>
-                        <div class="preview-section d-none" id="previewSection">
-                            <img id="signaturePreview" class="file-preview" alt="簽名預覽">
+                        <div class="preview-section @(string.IsNullOrEmpty(Model.SignaturePath) ? "d-none" : "")" id="previewSection">
+                            <img id="signaturePreview" class="file-preview"
+                                 src="@(string.IsNullOrEmpty(Model.SignaturePath) ? "#" : Model.SignaturePath)"
+                                 alt="簽名預覽">
                             <div class="preview-actions mt-3">
                                 <button type="button" class="btn btn-outline-danger btn-sm" id="removeSignature">
                                     <i class="bi bi-trash me-1"></i>移除
@@ -253,6 +297,12 @@
 
                 // 移除按鈕處理
                 $removeBtn.on('click', handleRemoveFile);
+
+                // 如果有預設圖片，顯示預覽
+                const existingPath = '@Model.SignaturePath';
+                if (existingPath && existingPath !== '') {
+                    switchToPreviewMode(existingPath);
+                }
             }
 
             // 初始化表單驗證
@@ -366,29 +416,35 @@
                 const formData = new FormData($form[0]);
 
                 $.ajax({
-                    url: '@Url.Action("Add", "AccountManagement")',
+                    url: '@Url.Action("Edit", "AccountManagement")',
                     type: 'POST',
                     data: formData,
                     processData: false,
                     contentType: false,
-                    success: function(response) {
-                        if (response.success) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: '新增成功',
-                                text: '員工資料已成功建立',
-                                confirmButtonText: '確定'
-                            }).then(() => {
-                                window.location.href = '@Url.Action("List", "AccountManagement")';
-                            });
-                        } else {
-                            showError('新增失敗', response.message || ERROR_MESSAGES.SYSTEM_ERROR);
-                        }
-                    },
-                    error: function() {
-                        showError('系統錯誤', ERROR_MESSAGES.SYSTEM_ERROR);
-                    }
+                    // beforeSend: () => showLoading(),
+                    success: handleSubmitSuccess,
+                    error: handleSubmitError,
+                    // complete: () => hideLoading()
                 });
+            }
+
+            function handleSubmitSuccess(response) {
+                if (response.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: '更新成功',
+                        text: '員工資料已成功更新',
+                        confirmButtonText: '確定'
+                    }).then(() => {
+                        window.location.href = '@Url.Action("List", "AccountManagement")';
+                    });
+                } else {
+                    showError('更新失敗', response.message || ERROR_MESSAGES.SYSTEM_ERROR);
+                }
+            }
+
+            function handleSubmitError() {
+                showError('系統錯誤', ERROR_MESSAGES.SYSTEM_ERROR);
             }
 
             // UI 輔助函數
@@ -399,6 +455,21 @@
                     text: message,
                     confirmButtonText: '確定'
                 });
+            }
+
+            function showLoading() {
+                Swal.fire({
+                    title: '處理中...',
+                    allowOutsideClick: false,
+                    showConfirmButton: false,
+                    willOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+            }
+
+            function hideLoading() {
+                Swal.close();
             }
         });
     </script>

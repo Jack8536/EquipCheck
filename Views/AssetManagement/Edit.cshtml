@@ -1,0 +1,60 @@
+﻿@model EquipCheck.Models.ViewModels.VM_Asset
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">編輯資產</h3>
+    </div>
+    <div class="card-body">
+        @using (Html.BeginForm("Edit", "AssetManagement", FormMethod.Post))
+        {
+            <div class="form-group row mb-3">
+                <label class="col-sm-2 col-form-label">資產編號</label>
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(m => m.Asset.AssetTag, new { @class = "form-control", @readonly = "readonly" })
+                </div>
+            </div>
+
+            <div class="form-group row mb-3">
+                <label class="col-sm-2 col-form-label">資產名稱</label>
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(m => m.Asset.AssetName, new { @class = "form-control", @readonly = "readonly" })
+                </div>
+            </div>
+
+            <div class="form-group row mb-3">
+                <label class="col-sm-2 col-form-label">資產類別</label>
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(m => m.Asset.CategoryId, Model.CategoryDDL, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group row mb-3">
+                <label class="col-sm-2 col-form-label">採購人員</label>
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(m => m.Asset.UserId, Model.BuyerDDL, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group row mb-3">
+                <label class="col-sm-2 col-form-label">購買日期</label>
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(m => m.Asset._PurchaseDate, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                </div>
+            </div>
+
+            <div class="form-group row mb-3">
+                <label class="col-sm-2 col-form-label">狀態</label>
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(m => m.Asset._Status, Model.StatusDDL, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-10 offset-sm-2">
+                    <button type="submit" class="btn btn-primary">儲存</button>
+                    @Html.ActionLink("返回", "List", "AssetManagement", null, new { @class = "btn btn-secondary" })
+                </div>
+            </div>
+        }
+    </div>
+</div>

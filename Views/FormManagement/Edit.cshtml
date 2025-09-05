@@ -1,0 +1,342 @@
+﻿@* @model EquipCheck.Models.ViewModels.VM_Form
+@{
+    ViewData["Title"] = "編輯表單";
+    Layout = "_Layout";
+}
+
+<!-- 麵包屑導航 -->
+<nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><i class="bi bi-clipboard-check me-1"></i>表單管理</li>
+        <li class="breadcrumb-item active" aria-current="page">編輯表單</li>
+    </ol>
+</nav>
+
+<div class="container-fluid px-0">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0">
+            <i class="bi bi-pencil-square me-2"></i>編輯表單
+        </h2>
+        <div>
+            <a href="@Url.Action("List")" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left me-1"></i>返回列表
+            </a>
+        </div>
+    </div>
+
+    <form method="post" id="checklistForm">
+        @Html.HiddenFor(m => m.FormUID)
+        @Html.HiddenFor(m => m.Sort)
+        @Html.HiddenFor(m => m.Status)
+
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-light py-3">
+                <h5 class="card-title mb-0">
+                    <i class="bi bi-file-text me-2"></i>基本資料
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="row align-items-center">
+                            <label class="col-md-3 col-form-label text-md-end required">表單名稱：</label>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(m => m.FormName, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row align-items-center">
+                            <label class="col-md-3 col-form-label text-md-end required">年份：</label>
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(m => m.Year, new { @class = "form-control", type = "number", min = "1", max = "8088" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row align-items-center">
+                            <label class="col-md-3 col-form-label text-md-end required">發起人：</label>
+                            <div class="col-md-9">
+                                @Html.DropDownListFor(m => m.Sponsor, new SelectList(Model.SponsorDDL, "Value", "Text"), "請選擇發起人", new { @class = "form-select" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row align-items-center">
+                            <label class="col-md-3 col-form-label text-md-end required">填寫期間：</label>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    @Html.TextBoxFor(m => m.StartDate, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                                    <span class="input-group-text">～</span>
+                                    @Html.TextBoxFor(m => m.EndDate, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow-sm">
+            <div class="card-header bg-light py-3 d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0">
+                    <i class="bi bi-list-check me-2"></i>檢查項目
+                </h5>
+                <button type="button" id="btnAdd" class="btn btn-primary">
+                    <i class="bi bi-plus-lg me-1"></i>新增題目
+                </button>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered align-middle" id="itemsTable">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="text-center" style="width:50px;">#</th>
+                                <th>檢查項目</th>
+                                <th style="width:140px;">是否啟用</th>
+                                <th style="width:90px;">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="itemsBody">
+                            @if (Model.Items != null)
+                            {
+                                for (int i = 0; i < Model.Items.Count; i++)
+                                {
+                                    <tr>
+                                        <td class="text-center">@(i + 1)</td>
+                                        <td>
+                                            @Html.HiddenFor(m => m.Items[i].ChecklistItemUid)
+                                            @Html.HiddenFor(m => m.Items[i].Sort)
+                                            @Html.TextBoxFor(m => m.Items[i].ItemName, new { @class = "form-control item-name" })
+                                        </td>
+                                        <td class="text-center">
+                                            @Html.CheckBoxFor(m => m.Items[i].Status, new { @class = "form-check-input item-status" })
+                                        </td>
+                                        <td class="text-center">
+                                            <button type="button" class="btn btn-sm btn-outline-danger btn-delete">
+                                                <i class="bi bi-trash me-1"></i>刪除
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-end mt-4">
+            <a href="@Url.Action("List")" class="btn btn-secondary">
+                <i class="bi bi-arrow-left me-1"></i>返回列表
+            </a>
+            <button type="submit" class="btn btn-success ms-2">
+                <i class="bi bi-save me-1"></i>儲存修改
+            </button>
+        </div>
+    </form>
+</div>
+
+<template id="rowTemplate">
+    <tr>
+        <td class="text-center index-cell"></td>
+        <td>
+            <input type="hidden" name="Items[IDX].ChecklistItemUid" class="item-checklistItemUid" />
+            <input type="hidden" name="Items[IDX].Sort" class="item-sort" value="0" />
+            <input type="text" name="Items[IDX].ItemName" class="form-control item-name" placeholder="請輸入檢查項目..." />
+        </td>
+        <td class="text-center">
+            <input type="checkbox" name="Items[IDX].Status" class="form-check-input item-status" checked />
+        </td>
+        <td class="text-center">
+            <button type="button" class="btn btn-sm btn-outline-danger btn-delete">
+                <i class="bi bi-trash me-1"></i>刪除
+            </button>
+        </td>
+    </tr>
+</template>
+
+@section Scripts {
+    <script>
+        $(function() {
+            const $body = $('#itemsBody');
+            const $btnAdd = $('#btnAdd');
+            const $tpl = $('#rowTemplate').html();
+            const $form = $('#checklistForm');
+
+            // 產生新guid
+            function newGuid() {
+                return window.crypto?.randomUUID() || 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,
+                    c => {
+                        const r = Math.random() * 16 | 0,
+                              v = c === 'x' ? r : (r & 0x3 | 0x8);
+                        return v.toString(16);
+                    });
+            }
+
+            // 新增題目
+            $btnAdd.on('click', function() {
+                const currentIndex = $body.find('tr').length;
+                const newRow = $tpl.replace(/IDX/g, currentIndex);
+                const $tr = $(newRow);
+
+                $tr.find('.item-checklistItemUid').val(newGuid());
+                $tr.find('.index-cell').text(currentIndex + 1);
+                $body.append($tr);
+                reindex();
+            });
+
+            // 刪除題目
+            $body.on('click', '.btn-delete', function() {
+                const $tr = $(this).closest('tr');
+
+                Swal.fire({
+                    title: '確認刪除',
+                    text: '確定要刪除此檢查項目嗎？',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: '確定',
+                    cancelButtonText: '取消'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $tr.remove();
+                        reindex();
+                    }
+                });
+            });
+
+            // 重新編號並更新 name 屬性
+            function reindex() {
+                $body.find('tr').each(function(i) {
+                    const $tr = $(this);
+                    $tr.find('.index-cell').text(i + 1);
+                    $tr.find('input').each(function() {
+                        const $input = $(this);
+                        const name = $input.attr('name');
+                        if (name) {
+                            $input.attr('name', name.replace(/Items\[\d+\]/, `Items[${i}]`));
+                        }
+                    });
+                    $tr.find('.item-sort').val(i + 1);
+                });
+            }
+
+            // 表單驗證
+            function validateForm() {
+                const formName = $('#FormName').val().trim();
+                const year = $('#Year').val();
+                const sponsor = $('#Sponsor').val();
+                const startDate = $('#StartDate').val();
+                const endDate = $('#EndDate').val();
+
+                if (!formName) {
+                    Swal.fire('錯誤', '請輸入表單名稱', 'error');
+                    return false;
+                }
+
+                if (!year) {
+                    Swal.fire('錯誤', '請輸入年份', 'error');
+                    return false;
+                }
+
+                if (!sponsor) {
+                    Swal.fire('錯誤', '請選擇發起人', 'error');
+                    return false;
+                }
+
+                if (!startDate || !endDate) {
+                    Swal.fire('錯誤', '請設定填寫時間區間', 'error');
+                    return false;
+                }
+
+                if (new Date(startDate) > new Date(endDate)) {
+                    Swal.fire('錯誤', '結束日期不能早於開始日期', 'error');
+                    return false;
+                }
+
+                const items = $body.find('.item-name').map(function() {
+                    return $(this).val().trim();
+                }).get();
+
+                if (items.length === 0) {
+                    Swal.fire('錯誤', '請至少新增一個檢查項目', 'error');
+                    return false;
+                }
+
+                if (items.some(item => !item)) {
+                    Swal.fire('錯誤', '檢查項目名稱不能為空', 'error');
+                    return false;
+                }
+
+                return true;
+            }
+
+            // 表單提交
+            $form.on('submit', function(e) {
+                e.preventDefault();
+
+                if (!validateForm()) {
+                    return false;
+                }
+
+                $.ajax({
+                    url: '@Url.Action("Edit", "FormManagement")',
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: '成功',
+                                text: '表單已成功更新',
+                                allowOutsideClick: false
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href = '@Url.Action("List", "FormManagement")';
+                                }
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: '錯誤',
+                                text: response.message || '儲存失敗，請稍後再試'
+                            });
+                        }
+                    },
+                    error: function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: '錯誤',
+                            text: '系統發生錯誤，請稍後再試'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+} *@
+
+
+@{
+    ViewData["Title"] = "編輯表單";
+}
+
+<div class="container-fluid px-0">
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><i class="bi bi-clipboard-check me-1"></i>表單管理</li>
+            <li class="breadcrumb-item active" aria-current="page">編輯表單</li>
+        </ol>
+    </nav>
+
+    <div class="text-center py-5">
+        <div class="mb-4">
+            <i class="bi bi-gear-wide-connected" style="font-size: 4rem; color: #6c757d;"></i>
+        </div>
+        <h3 class="mb-3">功能開發中</h3>
+        <p class="text-muted mb-4">此功能正在開發中，請稍後再試。</p>
+        <a href="@Url.Action("List", "FormManagement")" class="btn btn-primary">
+            <i class="bi bi-arrow-left me-1"></i>返回列表
+        </a>
+    </div>
+</div>

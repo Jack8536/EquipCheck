@@ -24,7 +24,7 @@ namespace EquipCheck.Services
         /// 取得操作日誌
         /// </summary>
         /// <returns>回傳操作日誌</returns>
-        public async Task<BaseModel<List<ActionlogListModel>>> GetActionLogList()
+        public async Task<BaseModel<List<ActionlogListModel>>> GetActionLogList(VM_ActionLog model)
         {
             var result = new BaseModel<List<ActionlogListModel>>();
 
@@ -41,6 +41,18 @@ namespace EquipCheck.Services
                                 IP = log.Ip,
                                 CreateDate = log.CreatedDate
                             }).OrderBy(x => x.CreateDate).ToList();
+
+                // 查詢
+                if (!string.IsNullOrEmpty(model.keyword))
+                {
+                    logs = logs.Where(x => x.Event != null && x.Event.Contains(model.keyword)).ToList();
+                }
+                
+                if (model.startDate.HasValue && model.endDate.HasValue)
+                {
+                    logs = logs.Where(x => x.CreateDate >= model.startDate.Value && x.CreateDate <= model.endDate.Value.AddDays(1).AddSeconds(-1)).ToList();
+                }
+
 
                 result.Success = true;
                 result.Message = "查詢成功";

@@ -19,12 +19,12 @@ namespace EquipCheck.Controllers
 
         public async Task<IActionResult> List()
         {
-            DepartmentViewModel model = new DepartmentViewModel();
+            VM_Department model = new VM_Department();
 
-            var DeptLists = await _departmentService.GetDeptList();
-            if (DeptLists.Success)
+            var result = await _departmentService.GetDeptList(model);
+            if (result.Success)
             {
-                model.DeptLists = DeptLists.Data;
+                model.DeptLists = result.Data;
             }
             else
             {
@@ -34,9 +34,27 @@ namespace EquipCheck.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> List(VM_Department model)
+        {
+            VM_Department data = new VM_Department();
+
+            var result = await _departmentService.GetDeptList(model);
+            if (result.Success)
+            {
+                data.DeptLists = result.Data;
+            }
+            else
+            {
+                data.DeptLists = new List<DeptListModel>();
+            }
+
+            return View(data);
+        }
+
         public async Task<IActionResult> Add()
         {
-            var model = new DepartmentViewModel();
+            var model = new VM_Department();
 
             var AllMembers = _CommonService.GetUserInfoList();
 
@@ -59,9 +77,36 @@ namespace EquipCheck.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(DepartmentViewModel model)
+        public async Task<IActionResult> Add(VM_Department model)
         {
             var result = await _departmentService.CreateDept(model);
+            return Json(result);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(Guid id)
+        {
+
+            var Dept = _CommonService.GetDepartment(id);
+            var model = new VM_Department();
+            var AllMembers = _CommonService.GetUserInfoList();
+            model.DepartmentUID = id;
+            model.DepartmentName = Dept?.DepartmentName;
+            model.Manager = Dept?.ManagerUid ?? Guid.Empty;
+            // 主管下拉
+            model.ManagerDDL = AllMembers.Select(x => new SelectListItem
+            {
+                Text = x.UserName,
+                Value = x.UserUid.ToString()
+            }).ToList();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(VM_Department model)
+        {
+            var result = await _departmentService.EditDept(model);
             return Json(result);
         }
     }

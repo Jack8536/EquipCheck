@@ -152,7 +152,7 @@
                     data: $(this).serialize(),
                     success: function (response) {
                         if (response.success) {                            
-                            window.location.href = '@Url.Action("List", "FormManagement")';
+                            window.location.href = '@Url.Action("List", "PersonalForm")';
                         } else {
                             Swal.fire({
                                 icon: 'error',

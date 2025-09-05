@@ -1,4 +1,6 @@
-﻿@{
+﻿@model EquipCheck.Models.ViewModels.VM_PersonalForm
+
+@{
     ViewData["Title"] = "表單管理";
 }
 
@@ -15,11 +17,11 @@
         <h5 class="card-title mb-0">表單管理</h5>
     </div>
     <div class="card-body">
-        <form id="searchForm" method="get">
+        <form id="searchForm" method="post">
             <div class="row g-3">
                 <div class="col-md-3">
                     <label class="form-label">關鍵字</label>
-                    <input type="text" class="form-control" name="keyword" placeholder="請輸入關鍵字">
+                    <input type="text" class="form-control" name="keyword" placeholder="請輸入表單名稱">
                 </div>
                 <div class="col-md-3">
                     <label class="form-label">年度(民國)</label>
@@ -62,33 +64,44 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if (Model != null && Model.Any())
+                    @if (Model != null && Model.FormList.Any())
                     {
-                        @foreach (var item in Model)
+                        @foreach (var item in Model.FormList)
                         {
                             <tr>
                                 <td>@item.Year</td>
-                                <td>@item.StartDate?.ToString("yyyy/MM/dd")</td>
-                                <td>@item.EndDate?.ToString("yyyy/MM/dd")</td>
+                                <td>@item.StartDate</td>
+                                <td>@item.EndDate</td>
                                 <td>@item.FormName</td>
-                                <td>@item.PublishUser</td>
+                                <td>@item.SponsorName</td>
+                                <td>@item.StatusName</td>
                                 <td>
-                                    @if (item.Status == 1)
+                                    @if (item.IsFinished == 0)
                                     {
-                                        <span class="badge bg-success">上架</span>
+                                        <div class="btn-group" role="group">
+                                            <button type="button" class="btn btn-sm btn-outline-primary"
+                                                    onclick="location.href='@Url.Action("Edit", "PersonalForm", new { id = item.FormUID })'">
+                                                <i class="bi bi-pencil"></i>編輯
+                                            </button>
+                                        </div>
+                                    }
+                                    else if (item.IsFinished == 2)
+                                    {
+                                        <div class="btn-group" role="group">
+                                            <button type="button" class="btn btn-sm btn-outline-primary"
+                                                    onclick="location.href='@Url.Action("Edit", "PersonalForm", new { id = item.FormUID })'">
+                                                <i class="bi bi-pencil"></i>編輯(被退回)
+                                            </button>
+                                        </div>
                                     }
                                     else
                                     {
-                                        <span class="badge bg-secondary">下架</span>
+                                        <div class="btn-group" role="group">
+                                            <button type="button" class="btn btn-sm btn-success" disabled>
+                                                <i class="bi bi-check-circle"></i>完成
+                                            </button>
+                                        </div>
                                     }
-                                </td>
-                                <td>
-                                    <div class="btn-group" role="group">
-                                        <button type="button" class="btn btn-sm btn-outline-primary"
-                                                onclick="location.href='@Url.Action("Edit", "PersonalForm", new { id = item.Id })'">
-                                            <i class="bi bi-pencil"></i>
-                                        </button>
-                                    </div>
                                 </td>
                             </tr>
                         }

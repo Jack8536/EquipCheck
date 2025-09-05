@@ -37,7 +37,7 @@ namespace EquipCheck.Controllers
                 Text = x.OptionName,
                 Value = x.Omuid.ToString()
             }).ToList();
-
+            model.Status = 1;
             model.StatusDDL = new List<SelectListItem>
             {
                 new SelectListItem { Text = "停用", Value = "0" },
@@ -47,9 +47,11 @@ namespace EquipCheck.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> Add()
+        [HttpPost]
+        public async Task<IActionResult> Add(VM_Option model)
         {
-            return View();
+            var result = await _optionManagementService.CreateDetail(model);
+            return Json(result);
         }
     }
 }

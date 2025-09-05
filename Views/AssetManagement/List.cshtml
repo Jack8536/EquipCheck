@@ -1,0 +1,241 @@
+﻿@model EquipCheck.Models.ViewModels.VM_Asset;
+
+@{
+    ViewData["Title"] = "資產管理";
+}
+
+<!-- 麵包屑 -->
+<nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><i class="bi bi-folder me-1"></i>文件管理</li>
+        <li class="breadcrumb-item active" aria-current="page">資產管理</li>
+    </ol>
+</nav>
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title mb-0">表單管理</h5>
+    </div>
+    <div class="card-body">
+        <form id="searchForm" method="post">
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <label class="form-label">關鍵字</label>
+                    <input type="text" class="form-control" name="keyword" placeholder="請輸入關鍵字">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">資產類別</label>
+                    @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.CategoryDDL, "Value", "Text"), "請選擇類型", new { @class = "form-select" })
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">購買日期(起)</label>
+                    <input type="date" class="form-control" name="startDate">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">購買日期(迄)</label>
+                    <input type="date" class="form-control" name="endDate">
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-search me-1"></i>搜尋
+                    </button>
+                    <button type="button" class="btn btn-secondary ms-2" onclick="clearForm()">
+                        <i class="bi bi-x-circle me-1"></i>清除
+                    </button>
+                    <button type="button" class="btn btn-success ms-2" onclick="openAddModal()">
+                        <i class="bi bi-plus-lg me-1"></i>新增
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card mt-4">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>資產編號</th>
+                        <th>資產編號/型號</th>
+                        <th>資產類別</th>
+                        <th>購買日期</th>
+                        <th>採購人員</th>
+                        <th>狀態</th>
+                        <th>動作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.AssetList.Any())
+                    {
+                        @foreach (var item in Model.AssetList)
+                        {
+                            <tr>
+                                <td>@item.AssetTag</td>
+                                <td>@item.AssetName</td>
+                                <td>@item.Category</td>
+                                <td>@item.PurchaseDate</td>
+                                <td>@item.UserName</td>
+                                <td>@item.Status</td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-sm btn-outline-primary"
+                                                onclick="location.href='@Url.Action("Edit", "AssetManagement", new { id = item.AssetId })'">
+                                            <i class="bi bi-pencil"></i>編輯
+                                        </button>
+                                    </div>
+                                    <button type="button" class="btn btn-sm btn-outline-danger ms-2" @* onclick="deleteAccount('@item.MemberAccount')" *@>
+                                        <i class="bi bi-trash me-1"></i>刪除
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="7" class="text-center">無資料</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@* 新增modal *@
+<div class="modal fade" id="addAssetModal" tabindex="-1" aria-labelledby="addAssetModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addAssetModalLabel">
+                    <i class="bi bi-plus-circle me-2"></i>新增資產
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addAssetForm">
+                    <div class="mb-3">
+                        <label class="form-label required">資產名稱/型號</label>
+                        <input type="text" class="form-control" name="AssetName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label required">資產類型</label>
+                        @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.CategoryDDL, "Value", "Text"), "請選擇類型", new { @class = "form-select", id = "modalCategory" })
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label required">購買日期</label>
+                        <input type="date" class="form-control" name="PurchaseDate" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label required">採購人員</label>
+                        @Html.DropDownListFor(m => m.BuyerId, new SelectList(Model.BuyerDDL, "Value", "Text"), "請選擇採購人員", new { @class = "form-select", id = "modalBuy" })
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label required">狀態</label>
+                        @Html.DropDownListFor(m => m.Status, new SelectList(Model.StatusDDL, "Value", "Text"), new { @class = "form-select", id = "modalStatus" })
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="bi bi-x-lg me-1"></i>取消
+                </button>
+                <button type="button" class="btn btn-primary" onclick="submitAssetForm()">
+                    <i class="bi bi-check-lg me-1"></i>儲存
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        // 清除搜尋條件
+        function clearForm() {
+            // 清除所有輸入欄位
+            $('input[name="keyword"]').val('');
+            $('#CategoryId').val('');
+            $('input[name="startDate"]').val('');
+            $('input[name="endDate"]').val('');
+
+            // 送出表單以重新載入頁面
+            $('#searchForm').submit();
+        }
+
+        // 開啟新增資產 Modal
+        function openAddModal() {
+            // 重設表單
+            $('#addAssetForm')[0].reset();
+
+            // 開啟 Modal
+            $('#addAssetModal').modal('show');
+        }
+
+        // 修改提交函數
+        function submitAssetForm() {
+            const $form = $('#addAssetForm');
+
+            // 檢查表單驗證
+            if (!$form[0].checkValidity()) {
+                $form[0].reportValidity();
+                return;
+            }
+
+            // 使用 FormData 直接序列化表單
+            var formData = new FormData($form[0]);
+
+            // 發送 AJAX 請求
+            $.ajax({
+                url: '@Url.Action("Add", "AssetManagement")',
+                type: 'POST',
+                data: $form.serialize(), // 使用 serialize() 而不是 JSON
+                success: function(response) {
+                    if (response.success) {
+                        // 關閉 Modal
+                        $('#addAssetModal').modal('hide');
+
+                        // 顯示成功訊息
+                        Swal.fire({
+                            icon: 'success',
+                            title: '新增成功',
+                            text: '資產已成功新增！',
+                            confirmButtonText: '確定'
+                        }).then((result) => {
+                            // 重新載入頁面以更新資料
+                            location.reload();
+                        });
+                    } else {
+                        // 顯示錯誤訊息
+                        Swal.fire({
+                            icon: 'error',
+                            title: '新增失敗',
+                            text: response.message || '發生錯誤，請稍後再試！',
+                            confirmButtonText: '確定'
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: '系統錯誤',
+                        text: '發生未預期的錯誤，請稍後再試！',
+                        confirmButtonText: '確定'
+                    });
+                }
+            });
+        }
+
+        // 當按下 Enter 鍵時觸發搜尋
+        // $('#searchForm input').keypress(function(e) {
+        //     if (e.which == 13) { // Enter key
+        //         e.preventDefault();
+        //         $('#searchForm').submit();
+        //     }
+        // });
+
+    </script>
+}

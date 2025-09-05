@@ -7,7 +7,7 @@ public partial class FormSubmissions
 {
     public Guid SubmissionUid { get; set; }
 
-    public Guid FormUid { get; set; }
+    public Guid? FormUid { get; set; }
 
     public Guid UserUid { get; set; }
 

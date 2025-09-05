@@ -2,8 +2,10 @@
 
 namespace EquipCheck.Models.ViewModels
 {
-    public class DepartmentViewModel
+    public class VM_Department
     {
+        // 部門id
+        public Guid DepartmentUID { get; set; }
         // 部門名稱
         public string DepartmentName { get; set; }
 
@@ -31,6 +33,8 @@ namespace EquipCheck.Models.ViewModels
 
     public class DeptListModel
     {
+        // 部門id
+        public Guid DepartmentUID { get; set; }
         // 部門名稱
         public string DepartmentName { get; set; }
 

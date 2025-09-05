@@ -1,0 +1,189 @@
+﻿@model EquipCheck.Models.ViewModels.VM_Form;
+
+@{
+    ViewData["Title"] = "表單審核";
+}
+
+<!-- 麵包屑導航 -->
+<nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><i class="bi bi-clipboard-check me-1"></i>表單管理</li>
+        <li class="breadcrumb-item active" aria-current="page">表單審核</li>
+    </ol>
+</nav>
+
+<div class="container-fluid px-0">
+    <!-- 搜尋區域 -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="card-title mb-0">搜尋條件</h5>
+        </div>
+        <div class="card-body">
+            <form id="searchForm" method="post">
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label class="form-label">填寫人</label>
+                        <input type="text" class="form-control" name="submitter" placeholder="請輸入填寫人姓名">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">部門</label>
+                        <input type="text" class="form-control" name="department" placeholder="請輸入部門名稱">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">提交日期(起)</label>
+                        <input type="date" class="form-control" name="startDate">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">提交日期(迄)</label>
+                        <input type="date" class="form-control" name="endDate">
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-search me-1"></i>搜尋
+                        </button>
+                        <button type="button" class="btn btn-secondary ms-2" onclick="clearForm()">
+                            <i class="bi bi-x-circle me-1"></i>清除
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 表單列表 -->
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title mb-0">待審核表單</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>提交日期</th>
+                            <th>填寫人</th>
+                            <th>部門</th>
+                            <th>資產編號</th>
+                            <th>檢查日期</th>
+                            <th>狀態</th>
+                            <th>動作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.SubmissionFormList.Any())
+                        {
+                            @foreach (var item in Model.SubmissionFormList)
+                            {
+                                <tr>
+                                    <td>@item.SubmissionDate</td>
+                                    <td>@item.EmployeeName</td>
+                                    <td>@item.DepartmentName</td>
+                                    <td>@item.AssetTag</td>
+                                    <td>@item.CheckDate</td>
+                                    <td>@item.Status</td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <button type="button" class="btn btn-sm btn-outline-primary"
+                                                    onclick="location.href='@Url.Action("DetailView", "FormManagement", new { id = item.SubmissionFormUID })'">
+                                                <i class="bi bi-eye"></i>檢視
+                                            </button>
+                                            <button type="button" class="btn btn-sm btn-outline-success" onclick="approveForm('@item.SubmissionFormUID' )">
+                                                <i class="bi bi-check-lg"></i>通過
+                                            </button>
+                                            <button type="button" class="btn btn-sm btn-outline-danger" onclick="rejectForm('@item.SubmissionFormUID')">
+                                                <i class="bi bi-x-lg"></i>退回
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="7" class="text-center">無待審核的表單</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <!-- 按鈕群組 -->
+                <div class="col-12 btn-group-bottom">
+                    <div class="d-flex justify-content-end gap-2">
+                        <button type="button" class="btn btn-secondary" onclick="history.back()">
+                            <i class="bi bi-arrow-left me-1"></i>返回
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // 清除搜尋條件
+        function clearForm() {
+            document.getElementById('searchForm').reset();
+            document.getElementById('searchForm').submit();
+        }
+
+        // 檢視表單
+        function viewForm(submissionUid) {
+            window.location.href = '@Url.Action("View", "FormManagement")/' + submissionUid;
+        }
+
+        // 通過表單
+        function approveForm(submissionUid) {
+            Swal.fire({
+                title: '確認通過？',
+                text: "確定要通過這份表單嗎？",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: '確定',
+                cancelButtonText: '取消'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.post('@Url.Action("Approve", "FormManagement")', { submissionUid: submissionUid })
+                        .done(function (response) {
+                            if (response.success) {
+                                Swal.fire('成功', '表單已通過', 'success')
+                                    .then(() => location.reload());
+                            } else {
+                                Swal.fire('錯誤', response.message || '操作失敗', 'error');
+                            }
+                        })
+                        .fail(function () {
+                            Swal.fire('錯誤', '系統發生錯誤', 'error');
+                        });
+                }
+            });
+        }
+
+        // 退回表單
+        function rejectForm(submissionUid) {
+            Swal.fire({
+                title: '確認退回？',
+                text: "確定要退回這份表單嗎？",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: '確定',
+                cancelButtonText: '取消'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.post('@Url.Action("reject", "FormManagement")', { submissionUid: submissionUid })
+                        .done(function (response) {
+                            if (response.success) {
+                                Swal.fire('成功', '表單已退回', 'success')
+                                    .then(() => location.reload());
+                            } else {
+                                Swal.fire('錯誤', response.message || '操作失敗', 'error');
+                            }
+                        })
+                        .fail(function () {
+                            Swal.fire('錯誤', '系統發生錯誤', 'error');
+                        });
+                }
+            });
+        }
+    </script>
+}

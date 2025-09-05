@@ -21,7 +21,7 @@ namespace EquipCheck.Controllers
         {
             VM_ActionLog model = new VM_ActionLog();
 
-            var result = await _actionLogService.GetActionLogList();
+            var result = await _actionLogService.GetActionLogList(model);
 
             if (result.Success)
             {
@@ -33,6 +33,25 @@ namespace EquipCheck.Controllers
             }
 
             return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> List(VM_ActionLog model)
+        {
+            VM_ActionLog data = new VM_ActionLog();
+
+            var result = await _actionLogService.GetActionLogList(model);
+
+            if (result.Success)
+            {
+                data.ActionlogList = result.Data;
+            }
+            else
+            {
+                data.ActionlogList = new List<ActionlogListModel>();
+            }
+
+            return View(data);
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿@model EquipCheck.Models.ViewModels.VM_Department;
 
 @{
-    ViewData["Title"] = "新增部門";
+    ViewData["Title"] = "編輯部門";
 }
 
 <style>
@@ -41,20 +41,6 @@
         padding: 0.375rem 0.75rem;
     }
 
-    .select2-container--bootstrap-5 .select2-selection__choice {
-        background-color: #e9ecef;
-        border: none;
-        border-radius: 0.25rem;
-        padding: 0.25rem 0.5rem;
-        margin: 0.125rem;
-    }
-
-    /* 必填標記樣式 */
-    .required-mark {
-        color: #dc3545;
-        margin-left: 0.25rem;
-    }
-
     /* 卡片標題區域 */
     .card-header {
         background-color: #fff;
@@ -72,13 +58,6 @@
     .form-section {
         margin-bottom: 2rem;
     }
-
-    /* 欄位提示文字 */
-    .field-hint {
-        font-size: 0.875rem;
-        color: #6c757d;
-        margin-top: 0.25rem;
-    }
 </style>
 
 <!-- 麵包屑 -->
@@ -90,55 +69,35 @@
         <li class="breadcrumb-item">
             <a href="@Url.Action("List", "DepartmentManagement")" class="text-decoration-none">部門管理</a>
         </li>
-        <li class="breadcrumb-item active" aria-current="page">新增部門</li>
+        <li class="breadcrumb-item active" aria-current="page">編輯部門</li>
     </ol>
 </nav>
 
 <div class="card">
     <div class="card-header d-flex align-items-center">
         <i class="bi bi-building me-2 text-primary"></i>
-        <h5 class="card-title mb-0">新增部門</h5>
+        <h5 class="card-title mb-0">編輯部門</h5>
     </div>
     <div class="card-body">
         <form id="departmentForm" method="post" class="needs-validation" novalidate>
+            @Html.HiddenFor(m => m.DepartmentUID)
             <div class="row g-4">
-                <!-- 部門名稱 -->
+                <!-- 部門名稱 (唯讀) -->
                 <div class="col-md-6 form-section">
                     <label for="departmentName" class="form-label">
                         <i class="bi bi-building me-1"></i>部門名稱
-                        <span class="required-mark">*</span>
                     </label>
-                    @* <input type="text" class="form-control" id="departmentName" name="departmentName"
-                           required placeholder="請輸入部門名稱"> *@
-                    @Html.TextBoxFor(m => m.DepartmentName, new { @class = "form-control", placeholder = "請輸入部門名稱", required = "required" })
-                    <div class="invalid-feedback">請輸入部門名稱</div>
+                    @Html.TextBoxFor(m => m.DepartmentName, new { @class = "form-control", @readonly = "readonly" })
                 </div>
 
                 <!-- 主管名稱 -->
                 <div class="col-md-6 form-section">
                     <label for="managerId" class="form-label">
                         <i class="bi bi-person-badge me-1"></i>主管名稱
-                        @* <span class="required-mark">*</span> *@
                     </label>
                     @Html.DropDownListFor(m => m.Manager, new SelectList(Model.ManagerDDL, "Value", "Text"), "請選擇部門主管", new { @class = "form-select" })
-                    <div class="invalid-feedback">請選擇部門主管</div>
+                    @* <div class="invalid-feedback">請選擇部門主管</div> *@
                 </div>
-
-                <!-- 部門成員 -->
-                @*                 <div class="col-12 form-section">
-                    <label for="members" class="form-label">
-                        <i class="bi bi-people me-1"></i>部門成員
-                    </label>
-                    <select class="form-select" id="members" name="members[]" multiple>
-                        @foreach (var employee in ViewBag.Employees ?? new List<dynamic>())
-                        {
-                            <option value="@employee.Value">@employee.Text</option>
-                        }
-                    </select>
-                    <div class="field-hint">
-                        <i class="bi bi-info-circle me-1"></i>可複選多個部門成員
-                    </div>
-                </div> *@
 
                 <!-- 按鈕群組 -->
                 <div class="col-12 btn-group-bottom">
@@ -164,32 +123,19 @@
     <script>
         $(document).ready(function() {
             // 初始化 Select2
-            $('#managerId').select2({
+            $('#Manager').select2({
                 theme: 'bootstrap-5',
                 width: '100%',
                 placeholder: '請選擇主管'
-            });
-
-            $('#members').select2({
-                theme: 'bootstrap-5',
-                width: '100%',
-                placeholder: '請選擇部門成員',
-                allowClear: true
             });
 
             // 表單驗證
             $('#departmentForm').on('submit', function(e) {
                 e.preventDefault();
 
-                if (!this.checkValidity()) {
-                    e.stopPropagation();
-                    $(this).addClass('was-validated');
-                    return;
-                }
-
                 // 發送表單數據
                 $.ajax({
-                    url: '@Url.Action("Add", "DepartmentManagement")',
+                    url: '@Url.Action("Edit", "DepartmentManagement")',
                     type: 'POST',
                     data: $(this).serialize(),
                     success: function(response) {
@@ -197,7 +143,7 @@
                             Swal.fire({
                                 icon: 'success',
                                 title: response.message,
-                                text: '部門已成功建立',
+                                text: '主管更新成功',
                                 confirmButtonText: '確定'
                             }).then((result) => {
                                 window.location.href = '@Url.Action("List", "DepartmentManagement")';
@@ -205,7 +151,7 @@
                         } else {
                             Swal.fire({
                                 icon: 'error',
-                                title: '新增失敗',
+                                title: '更新失敗',
                                 text: response.message || '發生錯誤，請稍後再試',
                                 confirmButtonText: '確定'
                             });

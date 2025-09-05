@@ -82,6 +82,9 @@
                             <div class="accordion-body p-0">
                                 <a href="@Url.Action("List", "FormManagement")" class="nav-link sub-menu"><i class="bi bi-file-text me-2"></i>表單管理</a>
                             </div>
+                            <div class="accordion-body p-0">
+                                <a href="@Url.Action("List", "AssetManagement")" class="nav-link sub-menu"><i class="bi bi-file-text me-2"></i>資產管理</a>
+                            </div>
                         </div>
                     </div>
 
@@ -148,6 +151,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>    
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

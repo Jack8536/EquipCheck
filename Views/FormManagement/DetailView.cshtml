@@ -1,0 +1,241 @@
+﻿@model EquipCheck.Models.ViewModels.VM_Form
+@{
+    ViewData["Title"] = "查看表單";
+}
+
+<style>
+    .card {
+        border: none;
+        margin-bottom: 1.5rem;
+    }
+
+    .card-header {
+        border-bottom: none;
+    }
+
+    .table > :not(caption) > * > * {
+        padding: 0.75rem;
+    }
+
+    .shadow-sm {
+        box-shadow: 0 .125rem .25rem rgba(0,0,0,.075) !important;
+    }
+
+    .breadcrumb {
+        background-color: #f8f9fa;
+        padding: 0.75rem 1rem;
+        border-radius: 0.25rem;
+    }
+
+    /* 檢查結果標籤樣式 */
+    .result-badge {
+        padding: 0.5rem 1rem;
+        border-radius: 0.25rem;
+        font-weight: 500;
+    }
+
+    .result-success {
+        background-color: #d1e7dd;
+        color: #0f5132;
+    }
+
+    .result-danger {
+        background-color: #f8d7da;
+        color: #842029;
+    }
+</style>
+
+<!-- 麵包屑導航 -->
+<nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><i class="bi bi-clipboard-check me-1"></i>表單管理</li>
+        <li class="breadcrumb-item active" aria-current="page">查看表單</li>
+    </ol>
+</nav>
+
+<div class="container-fluid px-0">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0">
+            <i class="bi bi-file-text me-2"></i>表單內容
+        </h2>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-light py-3">
+            <h5 class="card-title mb-0">
+                <i class="bi bi-person-lines-fill me-2"></i>基本資料
+            </h5>
+        </div>
+        <div class="card-body">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="row align-items-center">
+                        <label class="col-4 col-form-label text-end">填寫人：</label>
+                        <div class="col-8">                                                        
+                            @Html.TextBoxFor(m => m.FullForm.EmployeeName, new { @class = "form-control", disabled = "disabled" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row align-items-center">
+                        <label class="col-4 col-form-label text-end">部門：</label>
+                        <div class="col-8">                            
+                            @Html.TextBoxFor(m => m.FullForm.DepartmentName, new { @class = "form-control", disabled = "disabled" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row align-items-center">
+                        <label class="col-4 col-form-label text-end">分機：</label>
+                        <div class="col-8">                           
+                            @Html.TextBoxFor(m => m.FullForm.Tel, new { @class = "form-control", disabled = "disabled" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row align-items-center">
+                        <label class="col-4 col-form-label text-end">資產編號：</label>
+                        <div class="col-8">                            
+                            @Html.TextBoxFor(m => m.FullForm.AssetCode, new { @class = "form-control", disabled = "disabled" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row align-items-center">
+                        <label class="col-4 col-form-label text-end">檢查日期：</label>
+                        <div class="col-8">                            
+                            @Html.TextBoxFor(m => m.FullForm.CheckDate, new { @class = "form-control", disabled = "disabled" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-header bg-light py-3">
+            <h5 class="card-title mb-0">
+                <i class="bi bi-list-check me-2"></i>檢查項目
+            </h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th class="text-center" style="width:50px;">#</th>
+                            <th>檢查項目</th>
+                            <th style="width:200px;">檢查結果</th>
+                            <th>查核紀錄</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.FullForm.Items != null)
+                        {
+                            @for (int i = 0; i < Model.FullForm.Items.Count; i++)
+                            {
+                                var item = Model.FullForm.Items[i];
+                                @* var result = Model.Results[i]; *@
+                                <tr>
+                                    <td class="text-center fw-bold">@(i + 1)</td>
+                                    <td>@item.ItemName</td>
+                                    <td class="text-center">
+                                        @if (item.IsChecked == 1)
+                                        {
+                                            <span class="result-badge result-success">
+                                                <i class="bi bi-check-lg me-1"></i>符合
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="result-badge result-danger">
+                                                <i class="bi bi-x-lg me-1"></i>不符合
+                                            </span>
+                                        }
+                                    </td>
+                                    <td>@item.Remark</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-end mt-4">
+        <button type="button" class="btn btn-primary me-2" onclick="exportToWord()">
+            <i class="bi bi-file-earmark-word me-1"></i>匯出 Word
+        </button>
+        <a href="@Url.Action("List")" class="btn btn-secondary">
+            <i class="bi bi-arrow-left me-1"></i>返回列表
+        </a>
+    </div>
+</div>
+
+
+@* @section Scripts {
+    <script>
+        function exportToWord() {
+            // 顯示處理中訊息
+            Swal.fire({
+                title: '處理中...',
+                text: '正在產生 Word 文件',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            // 發送請求到後端
+            $.ajax({
+                url: '@Url.Action("ExportWord", "FormManagement")',
+                type: 'POST',
+                data: {
+                    formId: '@Model.FullForm.SubmissionUid'
+                },
+                xhrFields: {
+                    responseType: 'blob'
+                },
+                success: function (response) {
+                    // 隱藏處理中訊息
+                    Swal.close();
+
+                    // 建立 Blob 物件
+                    const blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+
+                    // 建立下載連結
+                    const downloadUrl = window.URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = downloadUrl;
+                    link.download = `表單_${new Date().toISOString().slice(0,10)}.docx`;
+
+                    // 觸發下載
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+
+                    // 釋放 URL 物件
+                    window.URL.revokeObjectURL(downloadUrl);
+
+                    // 顯示成功訊息
+                    Swal.fire({
+                        icon: 'success',
+                        title: '匯出成功',
+                        text: '文件已開始下載',
+                        confirmButtonText: '確定'
+                    });
+                },
+                error: function (xhr, status, error) {
+                    // 隱藏處理中訊息並顯示錯誤
+                    Swal.fire({
+                        icon: 'error',
+                        title: '匯出失敗',
+                        text: '產生文件時發生錯誤，請稍後再試',
+                        confirmButtonText: '確定'
+                    });
+                }
+            });
+        }
+    </script>
+} *@

@@ -27,16 +27,11 @@
         <form id="searchForm" method="get">
             <div class="row g-3">
                 <div class="col-md-3">
-                    <label class="form-label">選項類型</label>
-                    @* <input type="text" class="form-control" name="keyword" placeholder="請輸入關鍵字"> *@
-@*                     <select class="form-select" name="optionType">
-                        <option value="">請選擇選項類型</option>
-                        <option value="1" selected>資產類型</option>
-                    </select> *@
+                    <label class="form-label">選項類別</label>
                     @Html.DropDownListFor(m => m.Omuid, new SelectList(Model.OptionDDL, "Value", "Text"), new { @class = "form-select" })
                 </div>
                 <div class="col-12">
-                    <button type="button" class="btn btn-success ms-2" onclick="showAddModal()">
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addOptionModal">
                         <i class="bi bi-plus-lg me-1"></i>新增
                     </button>
                 </div>
@@ -70,12 +65,10 @@
                                 <td>Todo</td>
                                 <td>
                                     <div class="btn-group" role="group">
-                                        <button type="button" class="btn btn-sm btn-outline-primary"
-                                                @* onclick="location.href='@Url.Action("Edit", "PersonalForm", new { id = item.Id } *@)'">
+                                        <button type="button" class="btn btn-sm btn-outline-primary">
                                             <i class="bi bi-pencil"></i>編輯
                                         </button>
-                                        <button type="button" class="btn btn-sm btn-outline-danger ms-2"
-                                                @* onclick="deleteAccount()" *@>
+                                        <button type="button" class="btn btn-sm btn-outline-danger ms-2">
                                             <i class="bi bi-trash me-1"></i>刪除
                                         </button>
                                     </div>
@@ -95,41 +88,37 @@
     </div>
 </div>
 
-@* 新增選項modal *@
-<div class="modal fade" id="addOptionModal" tabindex="-1" aria-labelledby="addOptionModalLabel" aria-hidden="true">
+<!-- 新增選項 Modal -->
+<div class="modal fade" id="addOptionModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addOptionModalLabel">新增選項</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title">新增選項</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form id="addOptionForm">
+                <form id="addOptionForm" method="post">
                     <div class="mb-3">
-                        <label for="optionType" class="form-label">選項類型</label>
-                        <select class="form-select" id="optionType" name="optionType" disabled>
-                            <option value="1">資產類型</option>
-                        </select>
+                        <label class="form-label">選項類別</label>
+                        @Html.DropDownListFor(m => m.Omuid, new SelectList(Model.OptionDDL, "Value", "Text"), new { @class = "form-select", required = "required" , id = "modalCategory"})
                     </div>
                     <div class="mb-3">
-                        <label for="optionName" class="form-label">選項名稱</label>
-                        <span class="required-mark">*</span>                        
-                        @Html.TextBoxFor(m => m.OptionName, new { @class = "form-control", required = "required" })
+                        <label class="form-label">選項名稱</label>              
+                        @Html.TextBoxFor(m => m.OptionName, new { @class = "form-control", required = "required" , id = "modalOptionName"})
                     </div>
                     <div class="mb-3">
-                        <label for="status" class="form-label">狀態</label>
-                        <span class="required-mark">*</span>
-                        @Html.DropDownListFor(m => m.Status, new SelectList(Model.StatusDDL, "Value", "Text"), new { @class = "form-select", required = "required" })
+                        <label class="form-label">狀態</label>
+                        @Html.DropDownListFor(m => m.Status, new SelectList(Model.StatusDDL, "Value", "Text"), new { @class = "form-select", required = "required", id = "modalStatus" })
                     </div>
                     <div class="mb-3">
-                        <label for="remark" class="form-label">備註</label>                        
-                        @Html.TextBoxFor(m => m.Remark, new { @class = "form-control" })
+                        <label class="form-label">備註</label>
+                        <textarea class="form-control" name="Remark" id="Remark" rows="3"></textarea>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary" onclick="saveOption()">儲存</button>
+                <button type="button" class="btn btn-primary" onclick="submitOption()">確定</button>
             </div>
         </div>
     </div>
@@ -137,84 +126,56 @@
 
 @section Scripts {
     <script>
-        // 顯示新增 Modal
-        function showAddModal() {
-            // 設定選項類型為目前選擇的值
-            var currentType = $('select[name="Omuid"]').val();
-            $('#optionType').val(currentType);
+        function submitOption() {
+            // 取得表單資料
+            var formData = new FormData($("#addOptionForm")[0]);
 
-            // 清空欄位
-            $('#OptionName').val('');
-            $('#Status').val('1');   
-            $('#Remark').val('');  
-
-            // 顯示 Modal
-            $('#addOptionModal').modal('show');
-        }
-
-        // 儲存選項
-        function saveOption() {
-            var $form = $('#addOptionForm');
-
-            // 表單驗證 (驗證html5的屬性，ex: required)
-            if (!$form[0].checkValidity()) {
-                $form[0].reportValidity();
+            // 驗證
+            if (!$("#modalCategory").val() || !$("#modalOptionName").val() || !$("#modalStatus").val()) {
+                Swal.fire({
+                    icon: 'error',
+                    title: '錯誤',
+                    text: '請填寫必填欄位'
+                });
                 return;
             }
 
-            // 準備表單資料
-            var formData = {
-                optionType: $('#optionType').val(),
-                optionName: $('#OptionName').val(),
-                status: $('#Status').val(),
-                remark: $('#Remark').val()
-            };
-
-            // 發送 AJAX 請求
+            // 送出 Ajax 請求
             $.ajax({
                 url: '@Url.Action("Add", "OptionManagement")',
                 type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify(formData),
-                success: function(response) {
+                data: $("#addOptionForm").serialize(), // 使用 serialize() 方法
+                success: function (response) {
+                    console.log(response.success);
                     if (response.success) {
-                        // 關閉 Modal
-                        $('#addOptionModal').modal('hide');
-
                         Swal.fire({
                             icon: 'success',
-                            title: '新增成功',
-                            text: '選項已成功新增',
-                            confirmButtonText: '確定'
-                        }).then((result) => {
-                            // 重新載入
+                            title: '成功',
+                            text: '新增成功'
+                        }).then(function () {
                             location.reload();
                         });
                     } else {
                         Swal.fire({
                             icon: 'error',
-                            title: '新增失敗',
-                            text: response.message || '發生錯誤，請稍後再試',
-                            confirmButtonText: '確定'
+                            title: '錯誤',
+                            text: response.message || '新增失敗'
                         });
                     }
                 },
-                error: function(xhr, status, error) {
+                error: function () {
                     Swal.fire({
                         icon: 'error',
-                        title: '系統錯誤',
-                        text: '請稍後再試',
-                        confirmButtonText: '確定'
+                        title: '錯誤',
+                        text: '系統錯誤，請稍後再試'
                     });
-                    console.error('Error:', error);
                 }
             });
         }
 
-        // 清除搜尋條件
-        function clearForm() {
-            $('input[name="optionType"]').val('');            
-            $('#searchForm').submit();            
-        }
+        // 清除 Modal 表單
+        $('#addOptionModal').on('hidden.bs.modal', function () {
+            $('#addOptionForm')[0].reset();
+        });
     </script>
 }

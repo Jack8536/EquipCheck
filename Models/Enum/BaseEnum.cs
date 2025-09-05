@@ -72,4 +72,30 @@ namespace EquipCheck.Models.Enum
         [EnumMember(Value = "1")]
         assets = 1,
     }
+
+    public enum FormStatus
+    {
+        [Display(Name = "下架")]
+        [EnumMember(Value = "0")]
+        CommonUser = 0,
+
+        [Display(Name = "上架")]
+        [EnumMember(Value = "1")]
+        admin = 1,
+    }
+
+    public enum SubmissionStatus
+    {
+        [Display(Name = "待審核")]
+        [EnumMember(Value = "0")]
+        Judgeing = 0,
+
+        [Display(Name = "已核准")]
+        [EnumMember(Value = "1")]
+        pass = 1,
+
+        [Display(Name = "退回")]
+        [EnumMember(Value = "2")]
+        reject = 2,
+    }
 }

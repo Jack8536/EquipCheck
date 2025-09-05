@@ -1,22 +1,53 @@
-﻿@{
-    ViewData["Title"] = "問卷編輯（模板，無 Model）";
-    Layout = "_Layout"; // 若沒有佈局可移除
+﻿@model EquipCheck.Models.ViewModels.VM_Form
+@{
+    ViewData["Title"] = "問卷編輯";
+    Layout = "_Layout";
 }
 
 <h2 class="mb-3">表單編輯</h2>
 
-<form method="post" action="/Forms/SaveChecklist" id="checklistForm">
-    @* 暫無 Model，因此只用一般 input 與一個 payload 隱藏欄位 *@
-    <input type="hidden" id="payload" name="payload" />
+<form method="post" id="checklistForm">
+    @Html.HiddenFor(m => m.FormUID)
+    @Html.HiddenFor(m => m.Sort)
+    @Html.HiddenFor(m => m.Status)
 
     <div class="row g-2 mb-3">
         <div class="col-auto">
             <label class="col-form-label">表單名稱：</label>
         </div>
         <div class="col-6 col-md-4">
-            <input class="form-control" id="formUid" />
+            @Html.TextBoxFor(m => m.FormName, new { @class = "form-control" })
         </div>
         <div class="col-auto">
+            <label class="col-form-label">年份：</label>
+        </div>
+        <div class="col-2">
+            @Html.TextBoxFor(m => m.Year, new { @class = "form-control", type = "number", min = "1", max = "8088" })
+        </div>
+    </div>
+    <div class="row g-2 mb-3">
+        <div class="col-auto">
+            <label class="col-form-label">發起人：</label>
+        </div>
+        <div class="col-auto">
+            @Html.DropDownListFor(m => m.Sponsor, new SelectList(Model.SponsorDDL, "Value", "Text"), "請選擇發起人", new { @class = "form-select" })
+        </div>
+        <div class="col-auto">
+            <label class="col-form-label">填寫時間：</label>
+        </div>
+        <div class="col-auto">
+            @Html.TextBoxFor(m => m.StartDate, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+        </div>
+        <div class="col-auto">
+            <label class="col-form-label">～</label>
+        </div>
+        <div class="col-auto">
+            @Html.TextBoxFor(m => m.EndDate, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+        </div>
+        <div class="col-auto ms-auto">
+            <button type="button" class="btn btn-secondary" onclick="history.back()">
+                <i class="bi bi-arrow-left me-1"></i>返回
+            </button>
             <button type="button" id="btnAdd" class="btn btn-primary">＋ 新增題目</button>
             <button type="submit" class="btn btn-success">儲存</button>
         </div>
@@ -26,31 +57,49 @@
         <table class="table table-bordered align-middle" id="itemsTable">
             <thead class="table-light">
                 <tr>
-                    <th style="width:50px;">拖曳</th>
-                    <th>檢查項目 (ItemName)</th>
+                    <th style="width:50px;">#</th>
+                    <th>檢查項目</th>
                     <th style="width:140px;">是否啟用</th>
                     <th style="width:90px;">操作</th>
                 </tr>
             </thead>
             <tbody id="itemsBody">
-                @* 初始無資料；需要預放資料可在這邊插列 *@
+                @if (Model.Items != null)
+                {
+                    for (int i = 0; i < Model.Items.Count; i++)
+                    {
+                        <tr>
+                            <td class="text-center">@(i + 1)</td>
+                            <td>
+                                @Html.HiddenFor(m => m.Items[i].ChecklistItemUid)
+                                @Html.HiddenFor(m => m.Items[i].Sort)
+                                @Html.TextBoxFor(m => m.Items[i].ItemName, new { @class = "form-control item-name" })
+                            </td>
+                            <td class="text-center">
+                                @Html.CheckBoxFor(m => m.Items[i].Status, new { @class = "form-check-input item-status" })
+                            </td>
+                            <td class="text-center">
+                                <button type="button" class="btn btn-sm btn-outline-danger btn-delete">刪除</button>
+                            </td>
+                        </tr>
+                    }
+                }
             </tbody>
         </table>
     </div>
 </form>
 
 <template id="rowTemplate">
-    <tr draggable="true" class="draggable">
-        <td class="drag-handle text-center" title="拖曳排序">⋮⋮</td>
+    <tr>
+        <td class="text-center index-cell"></td>
         <td>
-            <input class="form-control item-name" placeholder="請輸入檢查項目..." />
-            @* 內部隱藏欄位（無 Model，純前端管理） *@
-            <input type="hidden" class="item-uid" />
-            <input type="hidden" class="item-formuid" />
-            <input type="hidden" class="item-sort" value="0" />
+            <input type="hidden" name="Items[IDX].ChecklistItemUid" class="item-checklistItemUid" />
+            @* <input type="hidden" name="Items[IDX].FormUID" class="item-formUid" /> *@
+            <input type="hidden" name="Items[IDX].Sort" class="item-sort" value="0" />
+            <input type="text" name="Items[IDX].ItemName" class="form-control item-name" placeholder="請輸入檢查項目..." />
         </td>
         <td class="text-center">
-            <input class="form-check-input item-status" type="checkbox" checked />
+            <input type="checkbox" name="Items[IDX].Status" class="form-check-input item-status" checked />
         </td>
         <td class="text-center">
             <button type="button" class="btn btn-sm btn-outline-danger btn-delete">刪除</button>
@@ -58,162 +107,153 @@
     </tr>
 </template>
 
-<style>
-    .draggable.dragging {
-        opacity: .5;
-    }
-
-    .drag-handle {
-        cursor: grab;
-        user-select: none;
-        font-size: 20px;
-    }
-
-    .drag-over {
-        outline: 2px dashed #0d6efd;
-    }
-</style>
-
 @section Scripts {
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script>
-        (() => {
-            const body = document.getElementById('itemsBody');
-            const btnAdd = document.getElementById('btnAdd');
-            const tpl = document.getElementById('rowTemplate');
-            const form = document.getElementById('checklistForm');
-            const payload = document.getElementById('payload');
-            const formUidInput = document.getElementById('formUid');
+        $(function() {
+            const $body = $('#itemsBody');
+            const $btnAdd = $('#btnAdd');
+            const $tpl = $('#rowTemplate').html();
+            const $form = $('#checklistForm');
+            const $formUid = $('#FormUID');
 
-            // 產生 GUID（新題目用）
+            // 產生新guid
             function newGuid() {
-                if (crypto && crypto.randomUUID) return crypto.randomUUID();
-                // 簡易 fallback
-                return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
-                    const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+                if (window.crypto && window.crypto.randomUUID) return window.crypto.randomUUID();
+                return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                    var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
                     return v.toString(16);
                 });
             }
 
             // 新增題目
-            btnAdd.addEventListener('click', () => {
-                const temp = document.createElement('tbody');
-                temp.innerHTML = tpl.innerHTML.trim();
-                const tr = temp.firstElementChild;
+            $btnAdd.on('click', function() {
+                const currentIndex = $body.find('tr').length;
+                const newRow = $tpl.replace(/IDX/g, currentIndex);
+                var $tr = $(newRow);
 
-                // 預設欄位
-                tr.querySelector('.item-uid').value = newGuid();
-                tr.querySelector('.item-formuid').value = formUidInput.value || '';
-
-                body.appendChild(tr);
-                wireRow(tr);
+                $tr.find('.item-checklistItemUid').val(newGuid());
+                // $tr.find('.item-formUid').val($formUid.val() || '');
+                $tr.find('.index-cell').text(currentIndex + 1);
+                $body.append($tr);
                 reindex();
             });
 
             // 刪除題目
-            body.addEventListener('click', (e) => {
-                const btn = e.target.closest('.btn-delete');
-                if (!btn) return;
-                btn.closest('tr')?.remove();
+            $body.on('click', '.btn-delete', function() {
+                $(this).closest('tr').remove();
                 reindex();
             });
 
-            // 綁定既有列（若你事先塞了資料）
-            Array.from(body.querySelectorAll('tr')).forEach(wireRow);
-
-            // 送出：把資料打包成 JSON 放進 hidden input[name=payload]
-            form.addEventListener('submit', (e) => {
-                // 可加前端驗證
-                const items = collectItems();
-                const data = {
-                    formUid: formUidInput.value || null,
-                    items: items
-                };
-                payload.value = JSON.stringify(data);
-                // 直接提交給後端（/Forms/SaveChecklist），後端再解析 payload JSON
-                // e.preventDefault(); // 若想先檢視 JSON 可取消註解暫停提交
-            });
-
-            function wireRow(tr) {
-                // Drag & Drop
-                tr.addEventListener('dragstart', (e) => {
-                    tr.classList.add('dragging');
-                    e.dataTransfer.effectAllowed = 'move';
-                });
-                tr.addEventListener('dragend', () => {
-                    tr.classList.remove('dragging');
-                    Array.from(body.children).forEach(r => r.classList.remove('drag-over'));
-                    reindex();
-                });
-            }
-
-            // 容器拖放
-            body.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                const after = getDragAfterElement(body, e.clientY);
-                const dragging = body.querySelector('.dragging');
-                if (!dragging) return;
-
-                Array.from(body.children).forEach(r => r.classList.remove('drag-over'));
-                if (after == null) {
-                    body.appendChild(dragging);
-                } else {
-                    after.classList.add('drag-over');
-                    body.insertBefore(dragging, after);
-                }
-            });
-
-            body.addEventListener('dragleave', (e) => {
-                if (e.target === body) {
-                    Array.from(body.children).forEach(r => r.classList.remove('drag-over'));
-                }
-            });
-
-            function getDragAfterElement(container, y) {
-                const rows = [...container.querySelectorAll('tr:not(.dragging)')];
-                return rows.reduce((closest, child) => {
-                    const box = child.getBoundingClientRect();
-                    const offset = y - box.top - box.height / 2;
-                    if (offset < 0 && offset > closest.offset) {
-                        return { offset, element: child };
-                    } else {
-                        return closest;
-                    }
-                }, { offset: Number.NEGATIVE_INFINITY }).element || null;
-            }
-
-            // 重新編號 sort & 同步 FormUID
+            // 重新編號並更新 name 屬性
             function reindex() {
-                const rows = Array.from(body.querySelectorAll('tr'));
-                rows.forEach((tr, i) => {
-                    const sortInput = tr.querySelector('.item-sort');
-                    if (sortInput) sortInput.value = i + 1;
-
-                    // 若使用者後改了 FormUID，同步到列
-                    const formUid = formUidInput.value || '';
-                    const rowFormUid = tr.querySelector('.item-formuid');
-                    if (rowFormUid) rowFormUid.value = formUid;
+                $body.find('tr').each(function(i) {
+                    const $tr = $(this);
+                    $tr.find('.index-cell').text(i + 1);
+                    $tr.find('input').each(function() {
+                        const $input = $(this);
+                        const name = $input.attr('name');
+                        if (name) {
+                            $input.attr('name', name.replace(/Items\[\d+\]/, `Items[${i}]`));
+                        }
+                    });
+                    $tr.find('.item-sort').val(i + 1);
+                    // $tr.find('.item-formUid').val($formUid.val() || '');
                 });
             }
 
-            // 收集所有列為 JSON 陣列
-            function collectItems() {
-                const rows = Array.from(body.querySelectorAll('tr'));
-                return rows.map((tr, i) => {
-                    const uid = tr.querySelector('.item-uid')?.value || newGuid();
-                    const formUid = tr.querySelector('.item-formuid')?.value || (formUidInput.value || '');
-                    const name = tr.querySelector('.item-name')?.value?.trim() || '';
-                    const sort = parseInt(tr.querySelector('.item-sort')?.value ?? (i + 1), 10);
-                    const status = tr.querySelector('.item-status')?.checked ?? false;
 
-                    return {
-                        ChecklistItemUid: uid || null,
-                        FormUID: formUid || null,
-                        ItemName: name,
-                        Sort: sort,
-                        Status: status
-                    };
+            // 表單提交
+            $form.on('submit', function(e) {
+                e.preventDefault();
+
+                if (!validateForm()) {
+                    return false;
+                }
+
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: response.message,
+                                text: '表單已成功創建',
+                                allowOutsideClick: false
+                            }).then((response) => {
+                                if (response.isConfirmed) {
+                                    window.location.href = '@Url.Action("List", "FormManagement")';
+                                }
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: '錯誤',
+                                text: response.message || '儲存失敗，請稍後再試'
+                            });
+                        }
+                    },
+                    error: function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: '錯誤',
+                            text: '系統發生錯誤，請稍後再試'
+                        });
+                    }
                 });
+            });
+
+            // 表單驗證
+            function validateForm() {
+                const formName = $('#FormName').val().trim();
+                const year = $('#Year').val();
+                const sponsor = $('#Sponsor').val();
+                const startDate = $('#StartDate').val();
+                const endDate = $('#EndDate').val();
+
+                if (!formName) {
+                    Swal.fire('錯誤', '請輸入表單名稱', 'error');
+                    return false;
+                }
+
+                if (!year) {
+                    Swal.fire('錯誤', '請輸入年份', 'error');
+                    return false;
+                }
+
+                if (!sponsor) {
+                    Swal.fire('錯誤', '請選擇發起人', 'error');
+                    return false;
+                }
+
+                if (!startDate || !endDate) {
+                    Swal.fire('錯誤', '請設定填寫時間區間', 'error');
+                    return false;
+                }
+
+                if (new Date(startDate) > new Date(endDate)) {
+                    Swal.fire('錯誤', '結束日期不能早於開始日期', 'error');
+                    return false;
+                }
+
+                const items = $body.find('.item-name').map(function() {
+                    return $(this).val().trim();
+                }).get();
+
+                if (items.length === 0) {
+                    Swal.fire('錯誤', '請至少新增一個檢查項目', 'error');
+                    return false;
+                }
+
+                if (items.some(item => !item)) {
+                    Swal.fire('錯誤', '檢查項目名稱不能為空', 'error');
+                    return false;
+                }
+
+                return true;
             }
-        })();
+        });
     </script>
 }

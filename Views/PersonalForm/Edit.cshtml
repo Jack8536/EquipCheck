@@ -1,0 +1,254 @@
+﻿@model EquipCheck.Models.ViewModels.VM_PersonalForm
+@{
+    ViewData["Title"] = "表單填寫";
+    Layout = "_Layout";
+}
+
+<style>
+    .required::before {
+        content: "* ";
+        color: #dc3545;
+        font-weight: bold;
+    }
+
+    .card {
+        border: none;
+        margin-bottom: 1.5rem;
+    }
+
+    .card-header {
+        border-bottom: none;
+    }
+
+    .table > :not(caption) > * > * {
+        padding: 0.75rem;
+    }
+
+    .btn-outline-success:hover,
+    .btn-check:checked + .btn-outline-success {
+        color: #fff;
+    }
+
+    .btn-outline-danger:hover,
+    .btn-check:checked + .btn-outline-danger {
+        color: #fff;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+        border-color: #86b7fe;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+
+    .btn-group {
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .shadow-sm {
+        box-shadow: 0 .125rem .25rem rgba(0,0,0,.075) !important;
+    }
+
+    .breadcrumb {
+        background-color: #f8f9fa;
+        padding: 0.75rem 1rem;
+        border-radius: 0.25rem;
+    }
+</style>
+
+<!-- 麵包屑導航 -->
+<nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><i class="bi bi-clipboard-check me-1"></i>表單管理</li>
+        <li class="breadcrumb-item active" aria-current="page">填寫表單</li>
+    </ol>
+</nav>
+
+<div class="container-fluid px-0">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0">
+            <i class="bi bi-pencil-square me-2"></i>填寫表單
+        </h2>
+    </div>
+
+    <form id="formSubmit" method="post">
+        @Html.HiddenFor(m => m.FullForm.FormUID)
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-light py-3">
+                <h5 class="card-title mb-0">
+                    <i class="bi bi-person-lines-fill me-2"></i>基本資料
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="row align-items-center">
+                            <label class="col-4 col-form-label text-end">填寫人：</label>
+                            <div class="col-8">
+                                @Html.HiddenFor(m => m.FullForm.EmployeeId)
+                                @Html.TextBoxFor(m => m.FullForm.EmployeeName, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="row align-items-center">
+                            <label class="col-4 col-form-label text-end">部門：</label>
+                            <div class="col-8">
+                                @Html.HiddenFor(m => m.FullForm.DepartmentId)
+                                @Html.TextBoxFor(m => m.FullForm.DepartmentName, new { @class = "form-control", @readonly = "readonly"})                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="row align-items-center">
+                            <label class="col-4 col-form-label text-end">分機：</label>
+                            <div class="col-8">                                
+                                @Html.TextBoxFor(m => m.FullForm.Tel, new { @class = "form-control", @readonly= "readonly" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="row align-items-center">
+                            <label class="col-4 col-form-label text-end required">資產編號：</label>
+                            <div class="col-8">
+                                @Html.DropDownListFor(m => m.AssetUID, new SelectList(Model.AssetsDDL, "Value", "Text"), "請選擇狀態", new { @class = "form-select" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="row align-items-center">
+                            <label class="col-4 col-form-label text-end required">檢查日期：</label>
+                            <div class="col-8">                                
+                                @Html.TextBoxFor(m => m.CheckDate, new { @class = "form-control", type = "date", required = "required" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow-sm">
+            <div class="card-header bg-light py-3">
+                <h5 class="card-title mb-0">
+                    <i class="bi bi-list-check me-2"></i>檢查項目
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="text-center" style="width:50px;">#</th>
+                                <th>檢查項目</th>
+                                <th style="width:200px;">檢查結果</th>
+                                <th>查核紀錄</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.FullForm.Items != null)
+                            {
+                                for (int i = 0; i < Model.FullForm.Items.Count; i++)
+                                {
+                                    <tr>
+                                        <td class="text-center fw-bold">@(i + 1)</td>
+                                        <td>
+                                            @Html.Hidden($"Results[{i}].ItemUID", Model.FullForm.Items[i].ItemUID)
+                                            @Model.FullForm.Items[i].ItemName
+                                        </td>
+                                        <td>
+                                            <div class="btn-group w-100" role="group">
+                                                <input type="radio" class="btn-check" name="Results[@i].IsChecked" id="@($"btnCheck_{i}_1")" value="1" required>
+                                                <label class="btn btn-outline-success" for="@($"btnCheck_{i}_1")">
+                                                    <i class="bi bi-check-lg me-1"></i>符合
+                                                </label>
+                                                <input type="radio" class="btn-check" name="Results[@i].IsChecked" id="@($"btnCheck_{i}_0")" value="0">
+                                                <label class="btn btn-outline-danger" for="@($"btnCheck_{i}_0")">
+                                                    <i class="bi bi-x-lg me-1"></i>不符合
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control form-control-sm" name="Results[@i].Remark" placeholder="請輸入查核紀錄...">
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-end mt-4">
+            <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("List")'">
+                <i class="bi bi-arrow-left me-1"></i>返回列表
+            </button>
+            <button type="submit" class="btn btn-success ms-2">
+                <i class="bi bi-send me-1"></i>送出表單
+            </button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        $(function() {
+            const $form = $('#formSubmit');
+
+            function validateForm() {
+                // 檢查資產編號
+                const assetUid = $('#AssetUID').val();
+                if (!assetUid) {
+                    Swal.fire('錯誤', '請選擇資產編號', 'error');
+                    return false;
+                }
+
+                // 檢查日期
+                const checkDate = $('#CheckDate').val();
+                if (!checkDate) {
+                    Swal.fire('錯誤', '請選擇檢查日期', 'error');
+                    return false;
+                }
+
+                // 檢查是否所有項目都已選擇結果
+                const totalItems = $('tbody tr').length;
+                const checkedItems = $('input[type="radio"]:checked').length;
+                if (checkedItems < totalItems) {
+                    Swal.fire('錯誤', '請完成所有檢查項目的檢查結果', 'error');
+                    return false;
+                }
+
+                return true;
+            }
+            
+            // 送出表單
+            $form.on('submit', function(e) {
+                e.preventDefault();
+                if (!validateForm()) return;
+                var formData = $(this).serializeArray();
+                $.ajax({
+                    url: '@Url.Action("Edit")',
+                    type: 'POST',
+                    data: formData,
+                    success: function(response) {
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: response.message,
+                                allowOutsideClick: false
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href = '@Url.Action("List")';
+                                }
+                            });
+                        } else {
+                            Swal.fire('錯誤', response.message || '儲存失敗', 'error');
+                        }
+                    },
+                    error: function() {
+                        Swal.fire('錯誤', '系統發生錯誤，請稍後再試', 'error');
+                    }
+                });
+            });
+        });
+    </script>
+}

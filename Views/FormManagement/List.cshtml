@@ -1,4 +1,6 @@
-﻿@{
+﻿@model EquipCheck.Models.ViewModels.VM_Form
+
+@{
     ViewData["Title"] = "表單管理";
 }
 
@@ -53,36 +55,35 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if (Model != null && Model.Any())
+                    @if (Model != null && Model.FormList.Any())
                     {
-@*                         @foreach (var item in Model)
+                        @foreach (var item in Model.FormList)
                         {
                             <tr>
                                 <td>@item.Year</td>
-                                <td>@item.StartDate?.ToString("yyyy/MM/dd")</td>
-                                <td>@item.EndDate?.ToString("yyyy/MM/dd")</td>
+                                <td>@item.StartDate</td>
+                                <td>@item.EndDate</td>
                                 <td>@item.FormName</td>
-                                <td>@item.PublishUser</td>
-                                <td>
-                                    @if (item.Status == 1)
-                                    {
-                                        <span class="badge bg-success">上架</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="badge bg-secondary">下架</span>
-                                    }
-                                </td>
+                                <td>@item.SponsorName</td>
+                                <td>@item.StatusName</td>
                                 <td>
                                     <div class="btn-group" role="group">
                                         <button type="button" class="btn btn-sm btn-outline-primary"
-                                                onclick="location.href='@Url.Action("Edit", "PersonalForm", new { id = item.Id })'">
-                                            <i class="bi bi-pencil"></i>
+                                                onclick="location.href='@Url.Action("Edit", "FormManagement")'">
+                                            <i class="bi bi-pencil"></i>編輯
                                         </button>
                                     </div>
+                                    <button type="button" class="btn btn-sm btn-outline-success"
+                                            onclick="location.href='@Url.Action("Judge", "FormManagement"@* , new { id = item.MemberUID } *@ )'">
+                                        <i class="bi bi-trash"></i>審核
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-outline-danger"
+                                            @* onclick="deleteAccount('@item.MemberAccount')" *@>
+                                        <i class="bi bi-trash"></i>刪除
+                                    </button>
                                 </td>
                             </tr>
-                        } *@
+                        }
                     }
                     else
                     {

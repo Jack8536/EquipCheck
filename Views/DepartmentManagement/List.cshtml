@@ -1,4 +1,4 @@
-﻿@model EquipCheck.Models.ViewModels.DepartmentViewModel;
+﻿@model EquipCheck.Models.ViewModels.VM_Department;
 
 @{
     ViewData["Title"] = "部門管理";
@@ -17,7 +17,7 @@
         <h5 class="card-title mb-0">部門管理</h5>
     </div>
     <div class="card-body">
-        <form id="searchForm" method="get">
+        <form id="searchForm" method="post">
             <div class="row g-3">
                 <div class="col-md-3">
                     <label class="form-label">關鍵字</label>
@@ -65,16 +65,14 @@
                                 <td>@string.Join("、", item.Members)</td>
                                 <td>
                                     <div class="btn-group" role="group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary"
-                                                @* onclick="deleteAccount() *@">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">
                                             <i class="bi bi-trash me-1"></i>檢視
                                         </button>
-                                        <button type="button" class="btn btn-sm btn-outline-primary ms-2"
-                                                onclick="location.href='@Url.Action("Edit", "PersonalForm" @* , new { id = item.Id } *@)'">
+                                        <button type="button" class="btn btn-sm btn-outline-primary" 
+                                                onclick="location.href='@Url.Action("Edit", "DepartmentManagement", new { id = item.DepartmentUID })'">
                                             <i class="bi bi-pencil"></i>編輯
                                         </button>
-                                        <button type="button" class="btn btn-sm btn-outline-danger ms-2"
-                                                @* onclick="deleteAccount()" *@>
+                                        <button type="button" class="btn btn-sm btn-outline-danger" onclick="deleteAccount()">
                                             <i class="bi bi-trash me-1"></i>刪除
                                         </button>
                                     </div>
@@ -103,7 +101,7 @@
             $('input[name="keyword"]').val('');
 
             // 送出表單以重新載入頁面
-            $('#searchForm').submit();            
+            $('#searchForm').submit();
         }
     </script>
 }

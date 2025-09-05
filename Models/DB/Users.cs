@@ -13,7 +13,7 @@ public partial class Users
 
     public string Password { get; set; } = null!;
 
-    public Guid? DepartmentUid { get; set; }
+    public Guid DepartmentUid { get; set; }
 
     public int Role { get; set; }
 

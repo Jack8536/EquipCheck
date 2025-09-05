@@ -17,15 +17,11 @@
         <h5 class="card-title mb-0">操作日誌</h5>
     </div>
     <div class="card-body">
-        <form id="searchForm" method="get">
+        <form id="searchForm" method="post">
             <div class="row g-3">
                 <div class="col-md-3">
                     <label class="form-label">關鍵字</label>
                     <input type="text" class="form-control" name="keyword" placeholder="請輸入關鍵字">
-                </div>
-                <div class="col-md-3">
-                    <label class="form-label">操作人員</label>
-                    <input type="text" class="form-control" name="operator" placeholder="請輸入關鍵字">
                 </div>
                 <div class="col-md-3">
                     <label class="form-label">表單填寫期間(起)</label>
@@ -104,6 +100,10 @@
                     }
                 </tbody>
             </table>
+            @* 加入分頁控制項 *@
+@*             <div class="mt-3">
+                @await Html.PartialAsync("_Pagination", Model.Pagination)
+            </div> *@
         </div>
     </div>
 </div>

@@ -7,7 +7,7 @@ public partial class FormsManagements
 {
     public Guid FormUid { get; set; }
 
-    public DateTime Year { get; set; }
+    public string Year { get; set; } = null!;
 
     public DateTime PeriodStart { get; set; }
 

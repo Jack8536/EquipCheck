@@ -8,6 +8,11 @@ namespace EquipCheck.Models.ViewModels
         public List<ActionlogListModel> ActionlogList { get; set; } = new List<ActionlogListModel>();
 
         // 查詢
+        public string keyword { get; set; }
+
+        public DateTime? startDate { get; set; }
+
+        public DateTime? endDate { get; set; }
     }
 
     public class ActionlogListModel
@@ -33,4 +38,6 @@ namespace EquipCheck.Models.ViewModels
         // 操作日期
         public DateTime CreateDate { get; set; }
     }
+
+
 }

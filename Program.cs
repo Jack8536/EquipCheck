@@ -19,6 +19,9 @@ builder.Services.AddScoped<EnumService>();
 builder.Services.AddScoped<DepartmentService>();
 builder.Services.AddScoped<ActionLogService>();
 builder.Services.AddScoped<OptionManagementService>();
+builder.Services.AddScoped<FormManagementService>();
+builder.Services.AddScoped<PersonalFormService>();
+builder.Services.AddScoped<AssetManagementService>();
 
 // Session
 builder.Services.AddSession(options =>
@@ -40,11 +43,9 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
-app.UseRouting();
-
-app.UseAuthorization();
 app.UseSession();
+app.UseRouting();
+app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Login}/{action=Login}/{id?}");

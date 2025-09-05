@@ -37,7 +37,7 @@ public partial class DBContext : DbContext
     {
         modelBuilder.Entity<ActionLogs>(entity =>
         {
-            entity.HasKey(e => e.Pid).HasName("PK__ActionLo__C57755206CABC754");
+            entity.HasKey(e => e.Pid).HasName("PK__ActionLo__C5775520CD042CAB");
 
             entity.Property(e => e.Pid).HasColumnName("PID");
             entity.Property(e => e.CreatedDate).HasColumnType("datetime");
@@ -49,7 +49,7 @@ public partial class DBContext : DbContext
 
         modelBuilder.Entity<AssetsManagements>(entity =>
         {
-            entity.HasKey(e => e.AssetUid).HasName("PK__AssetsMa__893D2BDE8162A997");
+            entity.HasKey(e => e.AssetUid).HasName("PK__AssetsMa__893D2BDE99947F2E");
 
             entity.Property(e => e.AssetUid)
                 .ValueGeneratedNever()
@@ -67,9 +67,9 @@ public partial class DBContext : DbContext
 
         modelBuilder.Entity<Departments>(entity =>
         {
-            entity.HasKey(e => e.DepartmentUid).HasName("PK__Departme__16865758DE3EC482");
+            entity.HasKey(e => e.DepartmentUid).HasName("PK__Departme__16865758588DEB91");
 
-            entity.HasIndex(e => e.DepartmentName, "UQ__Departme__D949CC34964D6F31").IsUnique();
+            entity.HasIndex(e => e.DepartmentName, "UQ__Departme__D949CC34D1492604").IsUnique();
 
             entity.Property(e => e.DepartmentUid)
                 .ValueGeneratedNever()
@@ -83,7 +83,7 @@ public partial class DBContext : DbContext
 
         modelBuilder.Entity<FormChecklistItems>(entity =>
         {
-            entity.HasKey(e => e.ChecklistItemUid).HasName("PK__FormChec__92A1C4181F31678E");
+            entity.HasKey(e => e.ChecklistItemUid).HasName("PK__FormChec__92A1C4181A6F1F7D");
 
             entity.Property(e => e.ChecklistItemUid)
                 .ValueGeneratedNever()
@@ -102,7 +102,7 @@ public partial class DBContext : DbContext
 
         modelBuilder.Entity<FormSubmissionItems>(entity =>
         {
-            entity.HasKey(e => e.SubmissionItemUid).HasName("PK__FormSubm__67D8C0F763AFD892");
+            entity.HasKey(e => e.SubmissionItemUid).HasName("PK__FormSubm__67D8C0F7BA58F158");
 
             entity.Property(e => e.SubmissionItemUid)
                 .ValueGeneratedNever()
@@ -120,7 +120,7 @@ public partial class DBContext : DbContext
 
         modelBuilder.Entity<FormSubmissionLogs>(entity =>
         {
-            entity.HasKey(e => e.SubmissionLogUid).HasName("PK__FormSubm__1B3D1B17E809C8BD");
+            entity.HasKey(e => e.SubmissionLogUid).HasName("PK__FormSubm__1B3D1B179BE066D9");
 
             entity.Property(e => e.SubmissionLogUid)
                 .ValueGeneratedNever()
@@ -137,7 +137,7 @@ public partial class DBContext : DbContext
 
         modelBuilder.Entity<FormSubmissions>(entity =>
         {
-            entity.HasKey(e => e.SubmissionUid).HasName("PK__FormSubm__CA4E92A85E7FC200");
+            entity.HasKey(e => e.SubmissionUid).HasName("PK__FormSubm__CA4E92A86FD69050");
 
             entity.Property(e => e.SubmissionUid)
                 .ValueGeneratedNever()
@@ -154,7 +154,7 @@ public partial class DBContext : DbContext
 
         modelBuilder.Entity<FormsManagements>(entity =>
         {
-            entity.HasKey(e => e.FormUid).HasName("PK__FormsMan__33A276AF07A7AC10");
+            entity.HasKey(e => e.FormUid).HasName("PK__FormsMan__33A276AF4EECD426");
 
             entity.Property(e => e.FormUid)
                 .ValueGeneratedNever()
@@ -165,12 +165,12 @@ public partial class DBContext : DbContext
             entity.Property(e => e.PeriodEnd).HasColumnType("datetime");
             entity.Property(e => e.PeriodStart).HasColumnType("datetime");
             entity.Property(e => e.Status).HasDefaultValue(1);
-            entity.Property(e => e.Year).HasColumnType("datetime");
+            entity.Property(e => e.Year).HasMaxLength(10);
         });
 
         modelBuilder.Entity<OmDetail>(entity =>
         {
-            entity.HasKey(e => e.Omduid).HasName("PK__OM_Detai__5FD07C5A41535F6A");
+            entity.HasKey(e => e.Omduid).HasName("PK__OM_Detai__5FD07C5AE7EB7256");
 
             entity.ToTable("OM_Detail");
 
@@ -192,7 +192,7 @@ public partial class DBContext : DbContext
 
         modelBuilder.Entity<OptionManagements>(entity =>
         {
-            entity.HasKey(e => e.Omuid).HasName("PK__OptionMa__AF9B712DDEAF88A1");
+            entity.HasKey(e => e.Omuid).HasName("PK__OptionMa__AF9B712DD2D64BB7");
 
             entity.Property(e => e.Omuid)
                 .ValueGeneratedNever()
@@ -206,9 +206,9 @@ public partial class DBContext : DbContext
 
         modelBuilder.Entity<Users>(entity =>
         {
-            entity.HasKey(e => e.UserUid).HasName("PK__Users__A1F26A8A5292E3A1");
+            entity.HasKey(e => e.UserUid).HasName("PK__Users__A1F26A8A7CA8ED8B");
 
-            entity.HasIndex(e => e.UserAccount, "UQ__Users__D68041C0600B0735").IsUnique();
+            entity.HasIndex(e => e.UserAccount, "UQ__Users__D68041C0658EBDAF").IsUnique();
 
             entity.Property(e => e.UserUid)
                 .ValueGeneratedNever()
