@@ -178,6 +178,7 @@ namespace EquipCheck.Services
                             //where sub.UserUid == id && sub.FormUid == Formid
                             select new FullForm
                             {
+                                FormSub = id,
                                 FormUID = sub.FormUid.Value,
                                 EmployeeId = user.UserUid,
                                 EmployeeName = user.UserName,

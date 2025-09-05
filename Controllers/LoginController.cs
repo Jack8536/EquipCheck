@@ -50,5 +50,20 @@ namespace EquipCheck.Controllers
             }
             return Json(isValid);
         }
+
+        public async Task<IActionResult> Logout()
+        {
+            var userUidString = HttpContext.Session.GetString("UserUid");
+            Guid userUid = Guid.Empty;
+            if (!string.IsNullOrEmpty(userUidString))
+            {
+                userUid = Guid.Parse(userUidString);
+            }
+            // 清除Session
+            HttpContext.Session.Clear();
+            _CommonService.WriteActionLog(2, true, userUid);
+            return RedirectToAction("Login", "Login");
+        }
+        
     }
 }

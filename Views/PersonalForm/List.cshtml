@@ -76,12 +76,21 @@
                                 <td>@item.SponsorName</td>
                                 <td>@item.StatusName</td>
                                 <td>
-                                    @if (item.IsFinished == 0)
+                                    @if (item.IsFinished == -1)
                                     {
                                         <div class="btn-group" role="group">
                                             <button type="button" class="btn btn-sm btn-outline-primary"
                                                     onclick="location.href='@Url.Action("Edit", "PersonalForm", new { id = item.FormUID })'">
                                                 <i class="bi bi-pencil"></i>編輯
+                                            </button>
+                                        </div>
+                                    }
+                                    else if (item.IsFinished == 0)
+                                    {
+                                        <div class="btn-group" role="group">
+                                            <button type="button" class="btn btn-sm btn-outline-primary"
+                                                    onclick="location.href='@Url.Action("Edit", "PersonalForm", new { id = item.FormUID })'">
+                                                <i class="bi bi-pencil"></i>待審核
                                             </button>
                                         </div>
                                     }
@@ -98,7 +107,7 @@
                                     {
                                         <div class="btn-group" role="group">
                                             <button type="button" class="btn btn-sm btn-success" disabled>
-                                                <i class="bi bi-check-circle"></i>完成
+                                                <i class="bi bi-check-circle"></i>通過
                                             </button>
                                         </div>
                                     }

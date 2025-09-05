@@ -28,11 +28,31 @@ namespace EquipCheck.Services
         public async Task<BaseModel<List<EnableFormListModel>>> GetEnableFormList(VM_PersonalForm model)
         {
             var result = new BaseModel<List<EnableFormListModel>>();
+            var CurrentUser = _CommonService.GetCurrentUser();
             try
             {
+                //var Forms = (from form in _dbcontext.FormsManagements.Where(x => x.Status == 1 || x.Status == 2)
+                //             join user in _dbcontext.Users on form.Sponsor equals user.UserUid
+                //             //join sub in _dbcontext.FormSubmissions on user.UserUid equals sub.UserUid into subJoin
+                //             join sub in _dbcontext.FormSubmissions on form.FormUid equals sub.FormUid into subJoin
+                //             from sub in subJoin.DefaultIfEmpty()
+                //             select new EnableFormListModel
+                //             {
+                //                 FormUID = form.FormUid,
+                //                 FormName = form.FormName,
+                //                 Year = form.Year,
+                //                 StartDate = form.PeriodStart.ToString("yyyy/MM/dd"),
+                //                 EndDate = form.PeriodEnd.ToString("yyyy/MM/dd"),
+                //                 SponsorName = user.UserName,
+                //                 StatusName = _enumService.GetDisplayNameByValue<FormStatus>(form.Status),
+                //                 IsFinished = sub != null ? sub.Status : -1 // -1 尚未填寫
+                //             }).ToList();
+
                 var Forms = (from form in _dbcontext.FormsManagements.Where(x => x.Status == 1 || x.Status == 2)
-                             join user in _dbcontext.Users on form.Sponsor equals user.UserUid                             
-                             join sub in _dbcontext.FormSubmissions on user.UserUid equals sub.UserUid into subJoin
+                             join user in _dbcontext.Users on form.Sponsor equals user.UserUid
+                             // 修改這裡的 join 條件，同時檢查 FormUid 和 UserUid
+                             join sub in _dbcontext.FormSubmissions.Where(x => x.UserUid == CurrentUser)
+                                 on form.FormUid equals sub.FormUid into subJoin
                              from sub in subJoin.DefaultIfEmpty()
                              select new EnableFormListModel
                              {
@@ -43,7 +63,8 @@ namespace EquipCheck.Services
                                  EndDate = form.PeriodEnd.ToString("yyyy/MM/dd"),
                                  SponsorName = user.UserName,
                                  StatusName = _enumService.GetDisplayNameByValue<FormStatus>(form.Status),
-                                 IsFinished = sub != null ? sub.Status : -1 // -1 尚未填寫
+                                 IsFinished = sub != null ? sub.Status : -1, // -1 尚未填寫
+                                 //SubmissionUID = sub != null ? sub.SubmissionUid : (Guid?)null // 可選：記錄提交ID
                              }).ToList();
 
                 // 查詢                
@@ -83,10 +104,15 @@ namespace EquipCheck.Services
         {
             var result = new BaseModel<Form>();
             var CurrentUser = _CommonService.GetCurrentUser();
-
+            var Forms = new Form();
             try
             {
-                var Forms = (from form in _dbcontext.FormsManagements.Where(x => x.FormUid == FormUID)
+                // 先檢查是否有提交記錄
+                var existingSubmission = _dbcontext.FormSubmissions.Where(x => x.FormUid == FormUID && x.UserUid == CurrentUser).FirstOrDefault();
+
+                if (existingSubmission == null)
+                {
+                    Forms = (from form in _dbcontext.FormsManagements.Where(x => x.FormUid == FormUID)
                              join item in _dbcontext.FormChecklistItems on form.FormUid equals item.FormUid into checklistItems
                              join user in _dbcontext.Users on CurrentUser equals user.UserUid
                              join dept in _dbcontext.Departments on user.DepartmentUid equals dept.DepartmentUid
@@ -98,7 +124,6 @@ namespace EquipCheck.Services
                                  DepartmentId = dept.DepartmentUid,
                                  DepartmentName = dept.DepartmentName,
                                  Tel = user.Tel,
-                                 //Items = checklistItems.Select(x => x.ItemName).ToList()
                                  Items = checklistItems.Select(x => new FormSubmissionItem
                                  {
                                      ItemUID = x.ChecklistItemUid,
@@ -106,6 +131,37 @@ namespace EquipCheck.Services
                                      Sort = x.Sort
                                  }).OrderBy(x => x.Sort).ToList(),
                              }).FirstOrDefault();
+                }
+                //else
+                //{
+                //    var Form = (from sub in _dbcontext.FormSubmissions.Where(x => x.SubmissionUid == existingSubmission.SubmissionUid)
+                //                join user in _dbcontext.Users on sub.UserUid equals user.UserUid
+                //                join dept in _dbcontext.Departments on user.DepartmentUid equals dept.DepartmentUid
+                //                join asset in _dbcontext.AssetsManagements on sub.AssestUid equals asset.AssetUid
+                //                //where sub.UserUid == id && sub.FormUid == Formid
+                //                select new Form
+                //                {
+                //                    FormUID = sub.FormUid.Value,
+                //                    EmployeeId = user.UserUid,
+                //                    EmployeeName = user.UserName,
+                //                    DepartmentId = dept.DepartmentUid,
+                //                    DepartmentName = dept.DepartmentName,
+                //                    Tel = user.Tel,
+                //                    AssetCode = asset.AssetCode,
+                //                    CheckDate = sub.CheckDate,
+                //                    // 取得檢查項目及結果
+                //                    Items = _dbcontext.FormSubmissionItems.Where(i => i.SubmissionUid == sub.SubmissionUid)
+                //                        .Select(i => new FormSubmissionItem
+                //                        {
+                //                            ItemName = _dbcontext.FormChecklistItems
+                //                                .Where(f => f.ChecklistItemUid == i.ChecklistItemUid)
+                //                                .Select(f => f.ItemName)
+                //                                .FirstOrDefault(),
+                //                            IsChecked = i.IsChecked,
+                //                            Remark = i.Remark
+                //                        }).ToList()
+                //                }).FirstOrDefault();
+                //}
 
                 result.Success = true;
                 result.Data = Forms;
@@ -123,7 +179,7 @@ namespace EquipCheck.Services
         /// 取得已作答表單
         /// </summary>
         /// <returns>回傳完整表單</returns>
-        
+
 
         /// <summary>
         /// 儲存表單作答答案
@@ -188,7 +244,7 @@ namespace EquipCheck.Services
                     // 日誌
                     await _CommonService.WriteActionLog(3, true, CurrentUser, "提交表單");
                 }
-                
+
                 result.Success = true;
                 result.Message = "提交成功";
             }
@@ -198,6 +254,6 @@ namespace EquipCheck.Services
                 result.Message = ex.ToString();
             }
             return result;
-        }                    
+        }
     }
 }

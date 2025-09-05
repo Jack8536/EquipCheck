@@ -110,6 +110,7 @@ namespace EquipCheck.Models.ViewModels
     public class FullForm
     {
         //
+        public Guid? FormSub { get; set; }
 
         // 員工id
         public Guid EmployeeId { get; set; }
